@@ -4,6 +4,7 @@ import {
   Box,
   Button,
   Flex,
+  Icon,
   Stack,
   useDisclosure,
   VStack,
@@ -26,13 +27,23 @@ export default function Navbar() {
   console.log(colorMode);
   return (
     <nav className="w-full ">
-      <Box background={"green.500"}>
+      <Box
+        background={"0090C1"}
+        backgroundImage={"/images/gradient-fire.png"}
+        borderBottomColor={"white"}
+        borderBottomWidth={"1.5px"}
+      >
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
-          <Box>Logo</Box>
+          <Icon size={"3xl"} marginLeft="6">
+            <a href="/">
+              <img src="/images/curse_logo.png" alt="" className="h-32 w-32" />
+            </a>
+          </Icon>
           <Flex alignItems={"center"}>
             <Stack direction={"row"} spacing={7}>
-              {/* <Button onClick={toggleColorMode}> */}
-              {/* <button className="p-32"> */}
+              <Box alignSelf={"center"}>
+                <a href="/chat">Chat</a>
+              </Box>
               <Button onClick={toggleColorMode}>
                 {colorMode === "light" ? (
                   <i className="pi pi-moon" style={{ fontSize: "1.5rem" }} />
@@ -40,9 +51,8 @@ export default function Navbar() {
                   <i className="pi pi-sun" style={{ fontSize: "1.5rem" }} />
                 )}
               </Button>
-              <Box>Chat</Box>
               <MenuRoot>
-                <MenuTrigger asChild>
+                <MenuTrigger marginLeft="16" asChild>
                   <Button as={Button} rounded="full" variant="link">
                     <Avatar
                       size={"md"}
@@ -50,7 +60,12 @@ export default function Navbar() {
                     />
                   </Button>
                 </MenuTrigger>
-                <VStack align="center" spacing={3} p={4}></VStack>
+                <VStack
+                  align="center"
+                  spacing={3}
+                  marginX={"8"}
+                  display={"flex"}
+                ></VStack>
                 <MenuContent>
                   <MenuItemGroup>
                     <Avatar
@@ -58,9 +73,7 @@ export default function Navbar() {
                       src={"https://avatars.dicebear.com/api/male/username.svg"}
                     />
                     <p>Username</p>
-
                     <MenuSeparator />
-
                     <MenuItem value="Account Settings">
                       <a href="/profile/settings">Account Settings</a>
                     </MenuItem>
@@ -74,12 +87,6 @@ export default function Navbar() {
           </Flex>
         </Flex>
       </Box>
-      {/* <ul>
-        <li>Home</li>
-        <li>Chat</li>
-        <li>Profile</li>
-        <li>Login / Register</li>
-      </ul> */}
     </nav>
   );
 }
