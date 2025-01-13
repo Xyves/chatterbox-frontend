@@ -1,37 +1,29 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
-import { Provider } from "@chakra-ui/react";
+import { ChakraProvider } from "@chakra-ui/react";
+import { defaultSystem } from "@chakra-ui/react";
+import { BrowserRouter, Route, Routes } from "react-router";
+import Home from "./pages/Home";
+import Layout from "./components/Layout/Layout";
+import Chat from "./pages/Chat";
+import Profile from "./pages/Profile";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <Provider>
-      <>
-        <div>
-          <a href="https://vite.dev" target="_blank">
-            <img src={viteLogo} className="logo" alt="Vite logo" />
-          </a>
-          <a href="https://react.dev" target="_blank">
-            <img src={reactLogo} className="logo react" alt="React logo" />
-          </a>
-        </div>
-        <h1>Vite + React</h1>
-        <div className="card">
-          <button onClick={() => setCount((count) => count + 1)}>
-            count is {count}
-          </button>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test HMR
-          </p>
-        </div>
-        <p className="read-the-docs">
-          Click on the Vite and React logos to learn more
-        </p>
-      </>
-    </Provider>
+    <ChakraProvider value={defaultSystem}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />}></Route>
+            <Route path="/login" element={<Login />}></Route>
+            <Route path="/register" element={<Register />}></Route>
+            <Route path="/chat" element={<Chat />}></Route>
+            <Route path="/profile/:id" element={<Profile />}></Route>
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </ChakraProvider>
   );
 }
 
