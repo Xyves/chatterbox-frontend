@@ -6,13 +6,15 @@
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
   min-height: 100% !important;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+html,
+body {
+  height: 100%;
+}
 a {
   font-weight: 500;
   color: #646cff;
@@ -47,4 +49,18 @@ h1 {
 }
 #root {
   width: full;
+  height: 100%;
+}
+.main {
+  background-image: url("/images/curse_background_hero.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 60vh;
+}
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
 }
