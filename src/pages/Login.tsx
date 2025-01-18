@@ -1,9 +1,13 @@
 import {
   Badge,
   Box,
+  Button,
   Container,
   FieldLabel,
   Fieldset,
+  Flex,
+  Grid,
+  Heading,
   Input,
   Stack,
   Switch,
@@ -18,35 +22,62 @@ import { useState } from "react";
 export default function Login() {
   const [value, setValue] = useState("");
   return (
-    <div>
-      <Container background={"#1C2321"}>
-        <Box>
-          <Stack gap="8" maxW="sm">
-            <Field orientation="horizontal" label="Name" required>
-              <Input placeholder="John Doe" flex="1" />
-            </Field>
-            <Stack maxW="300px">
-              <Field orientation="horizontal" label="Password" required>
-                <PasswordInput
-                  value={value}
-                  onChange={(e) => setValue(e.target.value)}
-                />
-              </Field>
+    <Flex justifyContent={"center"} alignContent={"center"}>
+      <Container
+        background={"white"}
+        color={"black"}
+        maxWidth={"2/5"}
+        height={"50vh"}
+        display="flex"
+        justifyContent={"center"}
+        marginTop="32"
+        padding="6"
+      >
+        <Grid templateColumns="repeat(2, 1fr)" gap="6">
+          <Box>
+            <Heading size="4xl" marginBottom="8">
+              Sign In
+            </Heading>
+            <Stack gap="8" maxW="sm">
+              <form action="">
+                <Field label="username" required>
+                  <Input
+                    placeholder="John Doe"
+                    size="md"
+                    name="username"
+                    css={{ "--focus-color": "#db2777" }}
+                    marginBottom="5"
+                  />
+                </Field>
+                <Stack maxW="300px">
+                  <Field label="Password" required>
+                    <PasswordInput
+                      value={value}
+                      onChange={(e) => setValue(e.target.value)}
+                      name="password"
+                      id="password"
+                    />
+                  </Field>
+                  <Button
+                    background={"#db2777"}
+                    variant="solid"
+                    rounded={"2xl"}
+                    marginTop={"8"}
+                  >
+                    Sign In
+                  </Button>
+                </Stack>
+              </form>
             </Stack>
-            <Field
-              orientation="horizontal"
-              label="Email"
-              optionalText={
-                <Badge size="xs" variant="surface">
-                  Optional
-                </Badge>
-              }
-            >
-              <Input placeholder="me@example.com" flex="1" />
-            </Field>
-          </Stack>
-        </Box>
+          </Box>
+          <Box background={"gray.500"} width={"full"}>
+            <Heading size="4xl">Welcome to login</Heading>
+            <br />
+            <Heading size="3xl">Don't have an account</Heading>
+            <Button>Sign up</Button>
+          </Box>
+        </Grid>
       </Container>
-    </div>
+    </Flex>
   );
 }
