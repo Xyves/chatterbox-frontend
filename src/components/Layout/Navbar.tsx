@@ -34,9 +34,9 @@ export default function Navbar() {
         borderBottomWidth={"1.5px"}
       >
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
-          <Icon size={"3xl"} marginLeft="6">
+          <Icon size={"2xl"} marginLeft="6">
             <a href="/">
-              <img src="/images/curse_logo.png" alt="" className="h-32 w-32" />
+              <img src="/images/curse_logo.png" alt="" className="" />
             </a>
           </Icon>
           <Flex alignItems={"center"}>
@@ -44,6 +44,7 @@ export default function Navbar() {
               <Box alignSelf={"center"}>
                 <a href="/chat">Chat</a>
               </Box>
+              {/* TODO: FIX toggleColor */}
               <Button onClick={toggleColorMode}>
                 {colorMode === "light" ? (
                   <i className="pi pi-moon" style={{ fontSize: "1.5rem" }} />
