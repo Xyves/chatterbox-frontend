@@ -1,41 +1,32 @@
 import {
-  Badge,
   Box,
   Button,
-  Container,
-  FieldLabel,
-  Fieldset,
   Flex,
   Grid,
   Heading,
   Input,
   Stack,
-  Switch,
 } from "@chakra-ui/react";
 import { Field } from "../components/ui/field";
-import {
-  PasswordInput,
-  PasswordStrengthMeter,
-} from "../components/ui/password-input";
+import { PasswordInput } from "../components/ui/password-input";
 import { useState } from "react";
+import { Link } from "react-router";
 
 export default function Login() {
-  const [value, setValue] = useState({ nickname: "", password: "" });
-
-  const submitForm = (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const nickname = formData.get("nickname");
-    const password = formData.get("password");
-    const response = await fetch(
-      "messaging-app-backend-production-b29f.up.railway.app/api/auth/login",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nickname, password }),
-      }
-    );
-  };
+  // const submitForm = (e) => {
+  //   e.preventDefault();
+  //   const formData = new FormData(e.target);
+  //   const nickname = formData.get("nickname");
+  //   const password = formData.get("password");
+  //   const response = await fetch(
+  //     "messaging-app-backend-production-b29f.up.railway.app/api/auth/login",
+  //     {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({ nickname, password }),
+  //     }
+  //   );
+  // };
   return (
     <Flex justifyContent={"center"} alignContent={"center"} height="55vh">
       <Box
@@ -64,7 +55,6 @@ export default function Login() {
                 <Field label="Password" required>
                   <PasswordInput
                     value={value.password}
-                    onChange={(e) => setValue(e.target.value)}
                     name="password"
                     id="password"
                   />
@@ -100,9 +90,11 @@ export default function Login() {
               <Heading size="lg" marginBottom={"6"}>
                 Don't have an account?
               </Heading>
-              <Button variant="outline" rounded="3xl" color="white">
-                Sign up
-              </Button>
+              <Link to="/register">
+                <Button variant="outline" rounded="3xl" color="white">
+                  Sign up
+                </Button>
+              </Link>
             </Box>
           </Flex>
         </Grid>
