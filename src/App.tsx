@@ -8,6 +8,7 @@ import Chat from "./pages/Chat";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import ErrorPage from "./pages/ErrorPage";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="/register" element={<Register />}></Route>
             <Route path="/chat" element={<Chat />}></Route>
             <Route path="/profile/:id" element={<Profile />}></Route>
+            <Route path="*" element={<ErrorPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
