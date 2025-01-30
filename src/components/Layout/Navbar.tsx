@@ -20,8 +20,12 @@ import {
 import { useColorMode, useColorModeValue } from "../ui/color-mode";
 
 import { Avatar } from "../ui/avatar";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Navbar() {
+  const { loading, userInfo, error } = useSelector((state) => state.auth);
+  console.log("userInfo is:", userInfo);
+  // dispatch(loginUser({ username, password }));
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
   console.log(colorMode);
@@ -73,14 +77,20 @@ export default function Navbar() {
                       size={"2xl"}
                       src={"https://avatars.dicebear.com/api/male/username.svg"}
                     />
-                    <p>Username</p>
+                    <p>{userInfo ? userInfo.nickname : ""}</p>
                     <MenuSeparator />
                     <MenuItem value="Account Settings">
                       <a href="/profile/settings">Account Settings</a>
                     </MenuItem>
-                    <MenuItem value="Logout">
-                      <a href="/logout">Logout</a>
-                    </MenuItem>
+                    {!userInfo ? (
+                      <MenuItem value="login">
+                        <a href="/login">Login</a>
+                      </MenuItem>
+                    ) : (
+                      <MenuItem value="Logout">
+                        <a href="/logout">Logout</a>
+                      </MenuItem>
+                    )}
                   </MenuItemGroup>
                 </MenuContent>
               </MenuRoot>
