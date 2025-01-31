@@ -9,24 +9,27 @@ import {
 } from "@chakra-ui/react";
 import { Field } from "../components/ui/field";
 import { PasswordInput } from "../components/ui/password-input";
-import { useState } from "react";
 import { Link } from "react-router";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../features/authActions.js";
+
+interface loginData {
+  nickname: string;
+  password: string;
+}
 
 export default function Login() {
-  // const submitForm = (e) => {
-  //   e.preventDefault();
-  //   const formData = new FormData(e.target);
-  //   const nickname = formData.get("nickname");
-  //   const password = formData.get("password");
-  //   const response = await fetch(
-  //     "messaging-app-backend-production-b29f.up.railway.app/api/auth/login",
-  //     {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({ nickname, password }),
-  //     }
-  //   );
-  // };
+  const { loading, userInfo, error, success } = useSelector(
+    (state) => state.auth
+  );
+  const dispatch = useDispatch();
+  const { register, handleSubmit } = useForm<loginData>();
+  const submitForm: SubmitHandler<loginData> = async (data) => {
+    console.log("logged:", data);
+    await dispatch(loginUser(data));
+    console.log(userInfo);
+  };
   return (
     <Flex justifyContent={"center"} alignContent={"center"} height="55vh">
       <Box
@@ -42,27 +45,39 @@ export default function Login() {
               Sign In
             </Heading>
             <Stack gap="8" maxW="sm">
-              <form onSubmit={() => submitForm}>
-                <Field label="username" required>
+              <form onSubmit={handleSubmit(submitForm)}>
+                <Field label="nickname" required>
                   <Input
                     placeholder="John Doe"
                     size="md"
-                    name="username"
                     css={{ "--focus-color": "#db2777" }}
+                    {...register("nickname", {
+                      required: {
+                        value: true,
+                        message: "Nickname is required",
+                      },
+                    })}
                     marginBottom="5"
                   />
                 </Field>
                 <Field label="Password" required>
                   <PasswordInput
-                    value={value.password}
-                    name="password"
+                    // value={value.password}
+
                     id="password"
+                    {...register("password", {
+                      required: {
+                        value: true,
+                        message: "password is required",
+                      },
+                    })}
                   />
                 </Field>
                 <Button
                   background={"#db2777"}
                   variant="solid"
                   rounded={"2xl"}
+                  type="submit"
                   marginTop={"8"}
                 >
                   Sign In
