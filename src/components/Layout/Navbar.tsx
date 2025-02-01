@@ -1,14 +1,6 @@
 import "primeicons/primeicons.css";
 
-import {
-  Box,
-  Button,
-  Flex,
-  Icon,
-  Stack,
-  useDisclosure,
-  VStack,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Icon, Stack, VStack } from "@chakra-ui/react";
 import {
   MenuContent,
   MenuItem,
@@ -23,16 +15,17 @@ import { Avatar } from "../ui/avatar";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Navbar() {
-  const { loading, userInfo, error } = useSelector((state) => state.auth);
-  console.log("userInfo is:", userInfo);
-  // dispatch(loginUser({ username, password }));
-  const { colorMode, toggleColorMode } = useColorMode();
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  console.log(colorMode);
+  const { loading, user, error } = useSelector((state) => state.auth);
+  console.log("user is:", user);
+  const { toggleColorMode, colorMode } = useColorMode();
   return (
-    <nav className="w-full ">
+    <nav
+      className={`-w-full ${
+        colorMode === "light" ? "bg-slate-300" : "bg-[#0090C1]"
+      }`}
+    >
       <Box
-        background={"0090C1"}
+        background={colorMode === "light" ? "whiteAlpha.800" : "bg-[#0090C1]"}
         backgroundImage={"/images/gradient-fire.png"}
         borderBottomColor={"white"}
         borderBottomWidth={"1.5px"}
@@ -61,7 +54,11 @@ export default function Navbar() {
                   <Button as={Button} rounded="full" variant="link">
                     <Avatar
                       size={"md"}
-                      src={"https://avatars.dicebear.com/api/male/username.svg"}
+                      src={
+                        user
+                          ? user.avatar_url
+                          : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png"
+                      }
                     />
                   </Button>
                 </MenuTrigger>
@@ -75,14 +72,18 @@ export default function Navbar() {
                   <MenuItemGroup>
                     <Avatar
                       size={"2xl"}
-                      src={"https://avatars.dicebear.com/api/male/username.svg"}
+                      src={
+                        user
+                          ? user.avatar_url
+                          : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png"
+                      }
                     />
-                    <p>{userInfo ? userInfo.nickname : ""}</p>
+                    <p>{user ? user.nickname : ""}</p>
                     <MenuSeparator />
                     <MenuItem value="Account Settings">
                       <a href="/profile/settings">Account Settings</a>
                     </MenuItem>
-                    {!userInfo ? (
+                    {!user ? (
                       <MenuItem value="login">
                         <a href="/login">Login</a>
                       </MenuItem>

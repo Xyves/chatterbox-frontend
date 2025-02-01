@@ -1,14 +1,13 @@
 import Navbar from "./Navbar";
 import { Outlet } from "react-router";
 import Footer from "./Footer";
+import { Grid } from "@chakra-ui/react";
 
 export default function Layout() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="grid grid-rows-[auto_1fr_auto] !h-full">
       <Navbar />
-      <main className="flex-1 flex flex-col">
-        <Outlet />
-      </main>
+      <Outlet />
       <Footer />
     </div>
   );
