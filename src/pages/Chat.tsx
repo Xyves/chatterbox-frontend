@@ -1,8 +1,34 @@
-import { AvatarIcon, Box, Flex, Grid, Text } from "@chakra-ui/react";
+import { AvatarIcon, Box, Flex, Grid, Heading, Text } from "@chakra-ui/react";
 import { Card } from "@chakra-ui/react";
 import Friendlist from "../components/Chat/Friendlist";
+import { Navigate } from "react-router";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUser } from "../features/authActions";
+import { Spinner } from "@chakra-ui/react";
+import { Avatar } from "../components/ui/avatar";
 
 export default function Chat() {
+  const dispatch = useDispatch();
+  const { loading, user, error } = useSelector((state) => state.auth);
+  const { userToken } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (userToken) {
+      dispatch(fetchUser());
+    }
+  }, [dispatch, userToken]);
+
+  if (loading) {
+    return (
+      <Box width="full" height="auto" my="64">
+        <Flex justifyContent={"center"} marginX="auto" alignContent={"center"}>
+          <Heading>Loading:</Heading>
+          <Spinner display="block" size="lg"></Spinner>
+        </Flex>
+      </Box>
+    );
+  }
   return (
     <Grid templateColumns={"12"} height={"88vh"} width="full">
       <Box
@@ -14,7 +40,15 @@ export default function Chat() {
         <Card.Root>
           <Card.Header />
           <Card.Body>
-            <AvatarIcon marginX="auto" size="2xl"></AvatarIcon>
+            <Avatar
+              marginX="auto"
+              size="2xl"
+              src={
+                user.avatar_url
+                  ? user.avatar_url
+                  : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png"
+              }
+            ></Avatar>
           </Card.Body>
           <Card.Title
             textAlign={"center"}
@@ -22,7 +56,8 @@ export default function Chat() {
             fontSize="lg"
             marginBottom="6"
           >
-            nickname
+            {user.nickname}
+            {/* nickname */}
           </Card.Title>
         </Card.Root>
         <Friendlist />
@@ -37,7 +72,8 @@ export default function Chat() {
           <Box>
             <Flex direction={"row"}>
               <AvatarIcon></AvatarIcon>
-              <Text>X</Text>
+              <Text>{user.bio}</Text>
+              <Text>{user.avatar_url}</Text>
             </Flex>
           </Box>
         </Box>
