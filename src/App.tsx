@@ -9,6 +9,7 @@ import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ErrorPage from "./pages/ErrorPage";
+import { ProtectedRoute } from "./pages/ProtectedRoute";
 
 function App() {
   return (
@@ -19,8 +20,22 @@ function App() {
             <Route index element={<Home />}></Route>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/register" element={<Register />}></Route>
-            <Route path="/chat" element={<Chat />}></Route>
-            <Route path="/profile/:id" element={<Profile />}></Route>
+            <Route
+              path="/chat"
+              element={
+                <ProtectedRoute>
+                  <Chat />
+                </ProtectedRoute>
+              }
+            ></Route>
+            <Route
+              path="/profile/:id"
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            ></Route>
             <Route path="*" element={<ErrorPage />} />
           </Route>
         </Routes>
