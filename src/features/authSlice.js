@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { registerUser } from "./authActions.js";
+import { fetchUser, registerUser } from "./authActions.js";
 import { loginUser } from "./authActions.js";
 const userToken = localStorage.getItem("token")
   ? localStorage.getItem("token")
@@ -7,21 +7,27 @@ const userToken = localStorage.getItem("token")
 
 const initialState = {
   loading: false,
-  // userInfo: localStorage.getItem("id")
-  //   ? {
-  //       id: localStorage.getItem("id"),
-  //       nickname: localStorage.getItem("nickname"),
-  //     }
-  //   : null,
+  user: null,
   userToken: null,
-  // localStorage.getItem("userToken"),
   error: null,
   success: false,
 };
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    logout: (state) => {
+      localStorage.removeItem("userToken");
+      localStorage.removeItem("persist:root");
+      localStorage.removeItem("id");
+      state.loading = false;
+      state.userInfo = null;
+      state.userToken = null;
+      state.user = null;
+      state.error = null;
+      window.location.replace("/");
+    },
+  },
   extraReducers: (builder) => {
     // registerUser
     builder
@@ -45,14 +51,35 @@ const authSlice = createSlice({
         })
         .addCase(loginUser.fulfilled, (state, { payload }) => {
           state.loading = false;
-          state.userInfo = { id: payload.id, nickname: payload.nickname };
+          state.user = {
+            id: payload.id,
+            nickname: payload.nickname,
+          };
           state.userToken = payload.userToken;
         })
         .addCase(loginUser.rejected, (state, { payload }) => {
           state.loading = false;
           state.error = payload;
+        })
+        // fetchUser
+        .addCase(fetchUser.pending, (state) => {
+          state.loading = true;
+        })
+        .addCase(fetchUser.fulfilled, (state, { payload }) => {
+          state.loading = false;
+          state.user = {
+            id: payload.id,
+            nickname: payload.nickname,
+            email: payload.email,
+            bio: payload.bio,
+            avatar_url: payload.avatar_url,
+          };
+        })
+        .addCase(fetchUser.rejected, (state) => {
+          state.loading = false;
+          state.user = null;
         });
   },
 });
-
+export const { logout } = authSlice.actions;
 export default authSlice.reducer;
