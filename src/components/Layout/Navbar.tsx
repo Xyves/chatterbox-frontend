@@ -1,6 +1,15 @@
 import "primeicons/primeicons.css";
 
-import { Box, Button, Flex, Icon, Stack, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  Icon,
+  Spinner,
+  Stack,
+  VStack,
+} from "@chakra-ui/react";
 import {
   MenuContent,
   MenuItem,
@@ -9,6 +18,7 @@ import {
   MenuSeparator,
   MenuTrigger,
 } from "../ui/menu";
+import { logout } from "../../features/authSlice";
 import { useColorMode, useColorModeValue } from "../ui/color-mode";
 
 import { Avatar } from "../ui/avatar";
@@ -18,14 +28,12 @@ export default function Navbar() {
   const { loading, user, error } = useSelector((state) => state.auth);
   console.log("user is:", user);
   const { toggleColorMode, colorMode } = useColorMode();
+  const dispatch = useDispatch();
+
   return (
-    <nav
-      className={`-w-full ${
-        colorMode === "light" ? "bg-slate-300" : "bg-[#0090C1]"
-      }`}
-    >
+    <nav className={`-w-full `}>
       <Box
-        background={colorMode === "light" ? "whiteAlpha.800" : "bg-[#0090C1]"}
+        background={colorMode === "light" ? "bg-[#0090C1]" : "whiteAlpha.800"}
         backgroundImage={"/images/gradient-fire.png"}
         borderBottomColor={"white"}
         borderBottomWidth={"1.5px"}
@@ -41,12 +49,11 @@ export default function Navbar() {
               <Box alignSelf={"center"}>
                 <a href="/chat">Chat</a>
               </Box>
-              {/* TODO: FIX toggleColor */}
               <Button onClick={toggleColorMode}>
                 {colorMode === "light" ? (
-                  <i className="pi pi-moon" style={{ fontSize: "1.5rem" }} />
+                  <i className="pi pi-moon" style={{ fontSize: "1rem" }} />
                 ) : (
-                  <i className="pi pi-sun" style={{ fontSize: "1.5rem" }} />
+                  <i className="pi pi-sun" style={{ fontSize: "1rem" }} />
                 )}
               </Button>
               <MenuRoot>
@@ -89,7 +96,9 @@ export default function Navbar() {
                       </MenuItem>
                     ) : (
                       <MenuItem value="Logout">
-                        <a href="/logout">Logout</a>
+                        <button onClick={() => dispatch(logout())}>
+                          Logout
+                        </button>
                       </MenuItem>
                     )}
                   </MenuItemGroup>
