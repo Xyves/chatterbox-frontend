@@ -24,6 +24,30 @@ const registerUser = createAsyncThunk(
     }
   }
 );
+const fetchUser = createAsyncThunk("user/me", async (_, thunkAPI) => {
+  try {
+    const token = thunkAPI.getState().auth.userToken;
+    if (!token) return thunkAPI.rejectWithValue("No token found");
+
+    const response = await fetch(`${backendUrl}/user/me`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (!response.ok) {
+      throw new Error("Failed to fetch user data");
+    }
+
+    const data = await response.json();
+    console.log("User data fetched:", data);
+
+    return data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.response.data);
+  }
+});
 const loginUser = createAsyncThunk(
   "auth/login",
   async ({ nickname, password }, { rejectWithValue }) => {
@@ -54,4 +78,4 @@ const loginUser = createAsyncThunk(
     }
   }
 );
-export { registerUser, loginUser };
+export { registerUser, loginUser, fetchUser };
