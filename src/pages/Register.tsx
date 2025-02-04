@@ -1,24 +1,30 @@
-import { Box, Flex, Heading, Input, Text, useSelect } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Heading,
+  Input,
+  Spinner,
+  Text,
+  useSelect,
+} from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { PasswordInput } from "../components/ui/password-input";
 import { Field } from "../components/ui/field";
 import { Button } from "../components/ui/button";
-import { Link, useNavigate } from "react-router";
+import { Link, Navigate, useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { registerUser } from "../features/authActions.js";
+import Loading from "../components/Loading.js";
 
 export default function Register() {
-  const { loading, userInfo, error, success } = useSelector(
+  const { loading, userInfo, error, success, userToken } = useSelector(
     (state) => state.auth
   );
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // if (success) navigate("/login");
-    // if (userInfo) navigate("/chat");
-  }, [navigate, userInfo, success]);
+  useEffect(() => {}, [navigate, userInfo, success]);
 
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm<registerData>();
@@ -31,7 +37,14 @@ export default function Register() {
     console.log("registered:", data);
     data.email = data.email.toLowerCase();
     dispatch(registerUser(data));
+    navigate("/login");
   };
+
+  if (loading) {
+    <Loading />;
+  }
+  // if (success) return <Navigate to="/login" replace />;
+  if (userToken) return <Navigate to="/chat" replace />;
   return (
     <Flex justifyContent={"center"} alignContent={"center"} marginY="auto">
       <Box
@@ -77,7 +90,6 @@ export default function Register() {
                 name="password"
                 id="password"
               />
-              {/* Confirm password */}
             </Field>
             <Button
               background={"#db2777"}
@@ -94,14 +106,3 @@ export default function Register() {
     </Flex>
   );
 }
-// <Field
-//           label="Email"
-//           optionalText={
-//             <Badge size="xs" variant="surface">
-//               Optional
-//             </Badge>
-//           }
-//         >
-//           <Input placeholder="me@example.com" flex="1" />
-//         </Field>
-//

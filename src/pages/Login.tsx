@@ -5,14 +5,17 @@ import {
   Grid,
   Heading,
   Input,
+  Spinner,
   Stack,
+  Text,
 } from "@chakra-ui/react";
 import { Field } from "../components/ui/field";
 import { PasswordInput } from "../components/ui/password-input";
-import { Link } from "react-router";
+import { Link, Navigate } from "react-router";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../features/authActions.js";
+import Loading from "../components/Loading.js";
 
 interface loginData {
   nickname: string;
@@ -20,16 +23,19 @@ interface loginData {
 }
 
 export default function Login() {
-  const { loading, userInfo, error, success } = useSelector(
-    (state) => state.auth
-  );
+  const { loading, user, error, success } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm<loginData>();
   const submitForm: SubmitHandler<loginData> = async (data) => {
-    console.log("logged:", data);
     await dispatch(loginUser(data));
-    console.log(userInfo);
+    console.log(user);
   };
+  if (user) {
+    return <Navigate to="/chat" replace />;
+  }
+  if (loading) {
+    <Loading />;
+  }
   return (
     <Flex justifyContent={"center"} alignContent={"center"} height="55vh">
       <Box
@@ -50,6 +56,9 @@ export default function Login() {
                   <Input
                     placeholder="John Doe"
                     size="md"
+                    borderColor={error ? "red" : ""}
+                    outlineColor={error ? "red" : ""}
+                    boxShadow={error ? "none" : ""}
                     css={{ "--focus-color": "#db2777" }}
                     {...register("nickname", {
                       required: {
@@ -82,6 +91,9 @@ export default function Login() {
                 >
                   Sign In
                 </Button>
+                <Text color={"red"} fontSize="sm">
+                  {error ? "Username or password is wrong" : ""}
+                </Text>
               </form>
             </Stack>
           </Box>
@@ -106,7 +118,7 @@ export default function Login() {
                 Don't have an account?
               </Heading>
               <Link to="/register">
-                <Button variant="outline" rounded="3xl" color="white">
+                <Button variant="outline" rounded="3xl" color="whiteAlpha.900">
                   Sign up
                 </Button>
               </Link>
