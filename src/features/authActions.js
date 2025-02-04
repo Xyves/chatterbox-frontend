@@ -11,7 +11,7 @@ const registerUser = createAsyncThunk(
           "Content-Type": "application/json",
         },
         method: "POST",
-        body: JSON.stringify({ nickname, email, password }), // Add body here
+        body: JSON.stringify({ nickname, email, password }),
       };
       await fetch(`${backendUrl}/auth/register`, config);
     } catch (error) {
@@ -60,6 +60,10 @@ const loginUser = createAsyncThunk(
         body: JSON.stringify({ nickname, password }),
       };
       const response = await fetch(`${backendUrl}/auth/login`, config);
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Authentication failed");
+      }
       const data = await response.json();
       localStorage.setItem("userToken", data.userToken);
       localStorage.setItem("id", data.id);
