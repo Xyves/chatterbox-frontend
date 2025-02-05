@@ -1,4 +1,12 @@
-import { AvatarIcon, Box, Flex, Grid, Heading, Text } from "@chakra-ui/react";
+import {
+  AvatarIcon,
+  AvatarImage,
+  Box,
+  Flex,
+  Grid,
+  Heading,
+  Text,
+} from "@chakra-ui/react";
 import { Card } from "@chakra-ui/react";
 import Friendlist from "../components/Chat/Friendlist";
 import { Navigate } from "react-router";
@@ -7,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchUser } from "../features/authActions";
 import { Spinner } from "@chakra-ui/react";
 import { Avatar } from "../components/ui/avatar";
+import Loading from "../components/Loading";
 
 export default function Chat() {
   const dispatch = useDispatch();
@@ -20,14 +29,7 @@ export default function Chat() {
   }, [dispatch, userToken]);
 
   if (loading) {
-    return (
-      <Box width="full" height="auto" my="64">
-        <Flex justifyContent={"center"} marginX="auto" alignContent={"center"}>
-          <Heading>Loading:</Heading>
-          <Spinner display="block" size="lg"></Spinner>
-        </Flex>
-      </Box>
-    );
+    <Loading />;
   }
   return (
     <Grid templateColumns={"12"} height={"88vh"} width="full">
@@ -68,16 +70,40 @@ export default function Chat() {
         height="full"
         gridColumnEnd="12"
       >
-        <Box margin="16" background="green.600" height="auto">
-          <Box>
-            <Flex direction={"row"}>
-              <AvatarIcon></AvatarIcon>
-              <Text>{user.bio}</Text>
-              <Text>{user.avatar_url}</Text>
-            </Flex>
-          </Box>
+        <Box margin="16" background="green.600" height="2xl">
+          <Grid>
+            <Box>
+              {/* Friend info */}
+              <Flex>
+                <Box>
+                  <Box>{/* Avatar + Name */}</Box>
+                  <Box>{/* Search + Call */}</Box>
+                </Box>
+              </Flex>
+            </Box>
+            <Box>
+              {/* Chat log list*/}
+              <Flex>
+                <Box>
+                  {/* Message */}
+                  <AvatarImage></AvatarImage>
+                  <Heading size="lg">uwotm8 January 10, 2023 16:23</Heading>
+                  <Text>no way!</Text>
+                </Box>
+              </Flex>
+            </Box>
+            <Box>{/* Chat input */}</Box>
+          </Grid>
+        </Box>
+        <Box>
+          <Flex direction={"row"}>
+            <AvatarIcon></AvatarIcon>
+            <Text>{user.bio}</Text>
+            <Text>{user.avatar_url}</Text>
+          </Flex>
         </Box>
       </Box>
+      {/* </Box> */}
     </Grid>
   );
 }
