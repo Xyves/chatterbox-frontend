@@ -5,16 +5,18 @@ import { useColorMode, useColorModeValue } from "../ui/color-mode";
 export default function Footer() {
   const { toggleColorMode, colorMode } = useColorMode();
 
-  const bg = colorMode === "light" ? "black" : "white";
+  const bg = colorMode === "light" ? "white" : "#435058";
   return (
     <Stack bg={bg} position="fixed" bottom="0" padding="2" width={"full"}>
       <Stack direction="row" align="center" justifyContent={"center"}>
-        <Text color={colorMode === "light" ? "white" : "black"}>Github:</Text>
+        <Text color={colorMode === "light" ? "gray.900" : "gray.50"}>
+          Github:
+        </Text>
         <i
-          className={`pi pi-github text-center ${
-            colorMode === "light" ? "text-black" : "text-white"
-          } `}
-          style={{ color: colorMode === "light" ? "white" : "black" }}
+          className={`pi pi-github text-center `}
+          style={{
+            color: colorMode === "light" ? "#435058" : "white",
+          }}
         ></i>
         <Link
           href="https://github.com/Xyves "

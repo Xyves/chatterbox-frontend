@@ -1,23 +1,19 @@
 import { Box, Button, Input } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import EmojiPicker from "emoji-picker-react";
+import { useColorMode } from "../../ui/color-mode";
 
 export default function ChatInput() {
-  const [pickerOpen, setPickerOpen] = useState(false);
-  const pickerRef = useRef(null);
-  const togglePicker = () => setPickerOpen((prev) => !prev);
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (pickerRef.current && !pickerRef.current.contains(event.target)) {
-        setPickerOpen(false); // Close the picker if clicked outside
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  const { toggleColorMode, colorMode } = useColorMode();
+
   return (
     <Box position="relative" display="inline-block " width="3/4">
-      <Input placeholder="Say something..." variant="subtle" />
+      <Input
+        placeholder="Say something..."
+        variant="subtle"
+        background={colorMode === "light" ? "whiteAlpha.950" : "blackAlpha.900"}
+        color={colorMode === "light" ? "whiteAlpha.950" : "blackAlpha.900"}
+      />
     </Box>
   );
 }

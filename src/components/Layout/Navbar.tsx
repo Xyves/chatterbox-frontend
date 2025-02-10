@@ -33,7 +33,7 @@ export default function Navbar() {
   return (
     <nav className={`-w-full `}>
       <Box
-        background={colorMode === "light" ? "bg-[#0090C1]" : "whiteAlpha.800"}
+        background={colorMode === "light" ? "whiteAlpha.800" : "#435058"}
         backgroundImage={"/images/gradient-fire.png"}
         borderBottomColor={"white"}
         borderBottomWidth={"1.5px"}
@@ -49,16 +49,26 @@ export default function Navbar() {
               <Box alignSelf={"center"}>
                 <a href="/chat">Chat</a>
               </Box>
-              <Button onClick={toggleColorMode}>
+              <Button
+                onClick={toggleColorMode}
+                background={colorMode === "light" ? "gray.400" : "gray.800"}
+                color={colorMode === "light" ? "black" : "gray.400"}
+                rounded="3xl"
+              >
                 {colorMode === "light" ? (
-                  <i className="pi pi-moon" style={{ fontSize: "1rem" }} />
-                ) : (
                   <i className="pi pi-sun" style={{ fontSize: "1rem" }} />
+                ) : (
+                  <i className="pi pi-moon" style={{ fontSize: "1rem" }} />
                 )}
               </Button>
               <MenuRoot>
                 <MenuTrigger marginLeft="16" asChild>
-                  <Button as={Button} rounded="full" variant="link">
+                  <Button
+                    as={Button}
+                    rounded="full"
+                    variant="link"
+                    background={"none"}
+                  >
                     <Avatar
                       size={"md"}
                       src={
