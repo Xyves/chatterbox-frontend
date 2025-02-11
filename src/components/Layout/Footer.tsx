@@ -5,7 +5,7 @@ import { useColorMode, useColorModeValue } from "../ui/color-mode";
 export default function Footer() {
   const { toggleColorMode, colorMode } = useColorMode();
 
-  const bg = colorMode === "light" ? "white" : "#435058";
+  const bg = colorMode === "light" ? "white" : "#848C8E";
   return (
     <Stack bg={bg} position="fixed" bottom="0" padding="2" width={"full"}>
       <Stack direction="row" align="center" justifyContent={"center"}>

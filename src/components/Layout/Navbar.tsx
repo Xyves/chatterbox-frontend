@@ -32,12 +32,7 @@ export default function Navbar() {
 
   return (
     <nav className={`-w-full `}>
-      <Box
-        background={colorMode === "light" ? "whiteAlpha.800" : "#435058"}
-        backgroundImage={"/images/gradient-fire.png"}
-        borderBottomColor={"white"}
-        borderBottomWidth={"1.5px"}
-      >
+      <Box background={"#DCF763"} backgroundImage={"/images/gradient-fire.png"}>
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <Icon size={"2xl"} marginLeft="6">
             <a href="/">
