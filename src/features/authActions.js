@@ -82,4 +82,32 @@ const loginUser = createAsyncThunk(
     }
   }
 );
-export { registerUser, loginUser, fetchUser };
+const fetchFriends = createAsyncThunk("chat", async (user_id, thunkAPI) => {
+  try {
+    const token = thunkAPI.getState().auth.userToken;
+    if (!token) return thunkAPI.rejectWithValue("No token found");
+    console.log("Current user id:", user_id);
+    const response = await fetch(
+      `${backendUrl}/chat/friends?user_id=${user_id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          body: JSON.stringify({ user_id }),
+        },
+      }
+    );
+    if (!response.ok) {
+      throw new Error("Failed to fetch user data");
+    }
+
+    const data = await response.json();
+    console.log("Friends data fetched:", data);
+
+    return data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.response.data);
+  }
+});
+export { registerUser, loginUser, fetchUser, fetchFriends };
