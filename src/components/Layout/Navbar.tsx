@@ -23,6 +23,7 @@ import { useColorMode, useColorModeValue } from "../ui/color-mode";
 
 import { Avatar } from "../ui/avatar";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router";
 
 export default function Navbar() {
   const { loading, user, error } = useSelector((state) => state.auth);
@@ -35,14 +36,14 @@ export default function Navbar() {
       <Box background={"#DCF763"} backgroundImage={"/images/gradient-fire.png"}>
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <Icon size={"2xl"} marginLeft="6">
-            <a href="/">
+            <Link to="/">
               <img src="/images/curse_logo.png" alt="" className="" />
-            </a>
+            </Link>
           </Icon>
           <Flex alignItems={"center"}>
             <Stack direction={"row"} spacing={7}>
               <Box alignSelf={"center"}>
-                <a href="/chat">Chat</a>
+                <Link to="/chat">Chat</Link>
               </Box>
               <Button
                 onClick={toggleColorMode}
@@ -93,16 +94,16 @@ export default function Navbar() {
                     <p>{user ? user.nickname : ""}</p>
                     <MenuSeparator />
                     <MenuItem value="Account Settings">
-                      <a href="/profile/settings">Account Settings</a>
+                      <Link to="/profile/settings">Account Settings</Link>
                     </MenuItem>
                     {!user ? (
                       <MenuItem value="login">
-                        <a href="/login">Login</a>
+                        <Link to="/login">Login</Link>
                       </MenuItem>
                     ) : (
                       <MenuItem value="Logout">
                         <button onClick={() => dispatch(logout())}>
-                          Logout
+                          <Link to="/logout">Logout</Link>
                         </button>
                       </MenuItem>
                     )}

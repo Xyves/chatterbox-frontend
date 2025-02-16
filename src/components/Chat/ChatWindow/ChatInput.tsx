@@ -1,9 +1,7 @@
 import { Box, Button, Input } from "@chakra-ui/react";
-import React, { useEffect, useRef, useState } from "react";
-import EmojiPicker from "emoji-picker-react";
 import { useColorMode } from "../../ui/color-mode";
 
-export default function ChatInput() {
+export default function ChatInput({ setMessages }) {
   const { toggleColorMode, colorMode } = useColorMode();
 
   return (

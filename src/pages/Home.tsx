@@ -1,6 +1,7 @@
 import { Box, Button, Container, Flex, Heading } from "@chakra-ui/react";
 import "../index.css";
 import { useColorMode } from "../components/ui/color-mode";
+import { Link } from "react-router";
 export default function Home() {
   const { toggleColorMode, colorMode } = useColorMode();
 
@@ -37,7 +38,7 @@ export default function Home() {
             else...
           </Heading>
           <h2 className="p-12  text-2xl"></h2>
-          <a href="/login">
+          <Link to="/login">
             <Button
               fontWeight={"bold"}
               marginY="5"
@@ -47,7 +48,7 @@ export default function Home() {
             >
               get started
             </Button>
-          </a>
+          </Link>
         </Box>
         <Box
           className="w-96"

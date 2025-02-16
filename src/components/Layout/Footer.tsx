@@ -18,13 +18,13 @@ export default function Footer() {
             color: colorMode === "light" ? "#435058" : "white",
           }}
         ></i>
-        <Link
+        <a
           href="https://github.com/Xyves "
           className="text-center"
           target="_blank"
         >
           Xyves
-        </Link>
+        </a>
       </Stack>
     </Stack>
   );

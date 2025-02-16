@@ -1,8 +1,11 @@
 import { Box, Heading, Text } from "@chakra-ui/react";
 import React from "react";
 import { Avatar } from "../../ui/avatar";
+import { useSelector } from "react-redux";
 
-export default function MessageList({ user }) {
+export default function MessageList({ messages }) {
+  const { loading, user, error } = useSelector((state) => state.auth);
+  if (messages) return "No messages yet";
   return (
     <Box>
       <Box

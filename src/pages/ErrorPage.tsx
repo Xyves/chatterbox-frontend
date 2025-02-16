@@ -1,4 +1,5 @@
 import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
+import { Link } from "react-router";
 
 export default function ErrorPage() {
   return (
@@ -24,9 +25,9 @@ export default function ErrorPage() {
       </Flex>
       <Flex justifyContent={"center"}>
         <Button className="btn" background={"red.700"}>
-          <a href="/" className="no-underline text-black ">
+          <Link to="/" className="no-underline text-black ">
             home
-          </a>
+          </Link>
         </Button>
       </Flex>
     </Box>
