@@ -2,7 +2,7 @@ import { Button, Card, Heading, HStack, Stack } from "@chakra-ui/react";
 import { Avatar } from "../../ui/avatar";
 import { Link } from "react-router";
 
-export default function Friend({ friend }) {
+export default function Friend({ friend, onSelectFriend }) {
   // Find chat id between user.id and friend.id -> Move to /chat/:id in chat component fetch messages for chatId sort by latest and friend data
   return (
     <Card.Root
@@ -16,7 +16,11 @@ export default function Friend({ friend }) {
       _last={{ marginBottom: "10" }}
     >
       <Link to={`/chat/${friend.chat_id}`} className="w-full">
-        <Button aria-labelledby={friend.id} width="full">
+        <Button
+          aria-labelledby={friend.id}
+          width="full"
+          onClick={() => onSelectFriend(friend)}
+        >
           <Card.Body>
             <HStack gap="3">
               <Avatar

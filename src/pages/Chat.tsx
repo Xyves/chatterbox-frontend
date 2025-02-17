@@ -9,29 +9,55 @@ import {
 } from "@chakra-ui/react";
 import "primeicons/primeicons.css";
 
-import { Card } from "@chakra-ui/react";
 import Friendlist from "../components/Chat/Sidebar/Friendlist";
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUser } from "../features/authActions";
-import { Avatar } from "../components/ui/avatar";
 import Loading from "../components/Loading";
-import User from "../components/Chat/ChatWindow/User";
-import MessageList from "../components/Chat/ChatWindow/MessageList";
-import UserInfo from "../components/Chat/Sidebar/UserInfo";
-import ChatInput from "../components/Chat/ChatWindow/ChatInput";
+import { fetchMessages } from "../features/authActions";
 
+import UserInfo from "../components/Chat/Sidebar/UserInfo";
+import MainChat from "../components/Chat/ChatWindow/MainChat";
+import { useParams } from "react-router";
+import { fetchFriends } from "../features/authActions";
 export default function Chat() {
+  const [messages, setMessages] = useState([]);
+  const { id } = useParams();
   const dispatch = useDispatch();
   const { loading, user, error } = useSelector((state) => state.auth);
   const { userToken } = useSelector((state) => state.auth);
-
+  const [friends, setFriends] = useState([]);
+  const [selectedFriend, setSelectedFriend] = useState(null);
   useEffect(() => {
     if (userToken) {
       dispatch(fetchUser());
     }
   }, [dispatch, userToken]);
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchMessages(id))
+        .unwrap()
+        .then((data) => setMessages(data))
+        .catch((error) => console.error("Error fetching messages:", error));
+    }
+  }, [id, dispatch, user.id]);
+  useEffect(() => {
+    const getFriends = async () => {
+      if (userToken) {
+        try {
+          console.log("The user while fetching friends:", user.nickname);
+          const response = await dispatch(fetchFriends(user.nickname));
+          setFriends(response.payload);
+          console.log("friendlist:", response.payload);
+        } catch (error) {
+          console.error("Error fetching friends:", error);
+        }
+      }
+    };
 
+    getFriends();
+  }, []);
+  const memoizedFriends = useMemo(() => friends, [friends]);
   if (loading) {
     <Loading />;
   }
@@ -45,31 +71,27 @@ export default function Chat() {
         background={"yellow.400"}
       >
         <UserInfo user={user} />
-        <Friendlist />
+        <Friendlist
+          friends={memoizedFriends}
+          onSelectFriend={setSelectedFriend}
+        />
       </Box>
       <Box
         gridColumnStart="3"
-        background="red.200"
+        background="#020887"
         gridColumnEnd="12"
         rounded="2xl"
         height="11/12"
       >
-        <Box
-          margin="16"
-          background="green.600"
-          height="2xl"
-          display="flex"
-          flexDirection="column"
-        >
-          <User user={user} />
-          <Box flex="1" overflow="auto">
-            <MessageList user={user} />
-            <MessageList user={user} />
-          </Box>
-          <Box width="full " padding="6">
-            <ChatInput />
-          </Box>
-        </Box>
+        {id ? (
+          <MainChat
+            messages={messages}
+            setMessages={setMessages}
+            selectedFriend={selectedFriend}
+          />
+        ) : (
+          ""
+        )}
       </Box>
     </Grid>
   );
