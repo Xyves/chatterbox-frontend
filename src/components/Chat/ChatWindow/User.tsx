@@ -7,14 +7,13 @@ export default function User({ user }) {
     <>
       <Box
         bg="blue.200"
-        height="40"
+        height="auto"
         borderTop="0"
         borderBottom={"6"}
         border={"yellow"}
         borderBlock={"solid"}
       >
-        {/* Friend info */}
-        <Box padding="6" width="full">
+        <Box padding="4" width="full">
           <Flex alignItems={"center"}>
             <Box>
               <Avatar
@@ -37,11 +36,15 @@ export default function User({ user }) {
             >
               <i
                 className="pi pi-search w-full h-full "
-                style={{ fontSize: "5rem", color: "orange" }}
+                style={{ fontSize: "4rem", color: "orange" }}
               ></i>
               <i
                 className="pi pi-phone w-full h-full "
-                style={{ fontSize: "5rem", color: "green" }}
+                style={{
+                  fontSize: "4rem",
+                  color: "green",
+                  marginLeft: "1rem",
+                }}
               ></i>
             </Box>
           </Flex>

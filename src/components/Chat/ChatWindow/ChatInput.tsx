@@ -5,13 +5,16 @@ export default function ChatInput({ setMessages }) {
   const { toggleColorMode, colorMode } = useColorMode();
 
   return (
-    <Box position="relative" display="inline-block " width="3/4">
+    <>
       <Input
         placeholder="Say something..."
         variant="subtle"
         background={colorMode === "light" ? "whiteAlpha.950" : "blackAlpha.900"}
-        color={colorMode === "light" ? "whiteAlpha.950" : "blackAlpha.900"}
+        color={colorMode === "light" ? "blackAlpha.900" : "whiteAlpha.950"}
       />
-    </Box>
+      <Button bg="blue.500" rounded="xl" marginTop="1ćC">
+        Submit Message
+      </Button>
+    </>
   );
 }
