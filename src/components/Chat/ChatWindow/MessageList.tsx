@@ -1,36 +1,22 @@
 import { Box, Heading, Text } from "@chakra-ui/react";
 import React from "react";
+import { RootState } from "../../../app/store";
 import { Avatar } from "../../ui/avatar";
 import { useSelector } from "react-redux";
+import Message from "./Message";
 
-export default function MessageList({ messages }) {
+export default function MessageList() {
+  const messages = useSelector((state: RootState) => state.messages.messages);
   const { loading, user, error } = useSelector((state) => state.auth);
-  if (messages) return "No messages yet";
   return (
     <Box>
-      <Box
-        bg="pink"
-        width="full"
-        display="flex"
-        gap="5"
-        paddingX="8"
-        marginBottom={"4"}
-      >
-        <Avatar
-          boxSize={"20"}
-          // size="2xl"
-          display="flex"
-          src={
-            user
-              ? user.avatar_url
-              : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png"
-          }
-        />
-        <Box display="inline">
-          <Heading size="lg">{user.nickname} January 10, 2023 16:23</Heading>
-          <Text>no way!</Text>
-        </Box>
-      </Box>
+      {messages.length > 0 ? (
+        messages.map((message) => (
+          <Message message={message} key={message.id} />
+        ))
+      ) : (
+        <p>Not found</p>
+      )}
     </Box>
   );
 }
