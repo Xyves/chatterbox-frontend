@@ -82,19 +82,18 @@ const loginUser = createAsyncThunk(
     }
   }
 );
-const fetchFriends = createAsyncThunk("chat", async (user_id, thunkAPI) => {
+const fetchFriends = createAsyncThunk("chat", async (nickname, thunkAPI) => {
   try {
     const token = thunkAPI.getState().auth.userToken;
     if (!token) return thunkAPI.rejectWithValue("No token found");
-    console.log("Current user id:", user_id);
+    console.log("Current user name:", nickname);
     const response = await fetch(
-      `${backendUrl}/chat/friends?user_id=${user_id}`,
+      `${backendUrl}/chat/friends?user_nickname=${nickname}`,
       {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
-          body: JSON.stringify({ user_id }),
         },
       }
     );
@@ -103,11 +102,39 @@ const fetchFriends = createAsyncThunk("chat", async (user_id, thunkAPI) => {
     }
 
     const data = await response.json();
+    const filteredData = data.filter(
+      (friend) => !friend.nickname.includes(nickname)
+    );
     console.log("Friends data fetched:", data);
 
-    return data;
+    return filteredData;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.response.data);
   }
 });
-export { registerUser, loginUser, fetchUser, fetchFriends };
+const fetchMessages = createAsyncThunk(
+  "messages/fetchMessages",
+  async (chat_id, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.userToken;
+      if (!token) return thunkAPI.rejectWithValue("No token found");
+      const response = await fetch(`${backendUrl}/chat/${chat_id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (!response.ok) {
+        throw new Error("Failed to fetch user data");
+      }
+
+      const data = await response.json();
+      console.log("Messages fetched:", data);
+      return data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.message || "Unknown error");
+    }
+  }
+);
+export { registerUser, loginUser, fetchUser, fetchFriends, fetchMessages };
