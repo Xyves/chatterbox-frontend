@@ -35,18 +35,25 @@ function App() {
             <Route
               path="/chat"
               element={
-                // <ProtectedRoute>
-                <Chat />
-                // </ProtectedRoute>
+                <ProtectedRoute>
+                  <Chat />
+                </ProtectedRoute>
               }
             ></Route>
-            <Route path="/chat/:id" element={<Chat />}></Route>
+            <Route
+              path="/chat/:id"
+              element={
+                <ProtectedRoute>
+                  <Chat />
+                </ProtectedRoute>
+              }
+            ></Route>
             <Route
               path="/profile/:id"
               element={
-                // <ProtectedRoute>
-                <Profile />
-                // </ProtectedRoute>
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
               }
             ></Route>
             <Route path="*" element={<ErrorPage />} />
