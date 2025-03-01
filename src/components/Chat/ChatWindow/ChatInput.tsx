@@ -4,12 +4,15 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { postComment } from "../../../features/chatActions";
 import { Form } from "react-hook-form";
 import { addMessage } from "../../../features/chatSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router";
 export default function ChatInput({ setMessages, messages = [] }) {
   const { toggleColorMode, colorMode } = useColorMode();
   const dispatch = useDispatch();
   const { handleSubmit, register } = useForm();
+  const { user } = useSelector((state) => state.auth);
 
+  const { id } = useParams();
   const color = colorMode === "light" ? "blackAlpha.900" : "whiteAlpha.950";
   interface submitData {
     chat_id: string;
@@ -18,11 +21,11 @@ export default function ChatInput({ setMessages, messages = [] }) {
   }
 
   const submitForm: SubmitHandler<submitData> = async (data) => {
-    const newComment = await postComment(data);
-    console.log(messages);
-    console.log(newComment);
-    dispatch(addMessage(newComment)); // Dispatch action to Redux store
-    console.log("Updated messages:", messages);
+    const newComment = await dispatch(
+      postComment({ chat_id: id, content: data.content, sender_id: user.id })
+    ).unwrap();
+    console.log("New comment:", newComment);
+    // dispatch(addMessage(newComment));
   };
   return (
     <>
@@ -33,6 +36,7 @@ export default function ChatInput({ setMessages, messages = [] }) {
           background={
             colorMode === "light" ? "whiteAlpha.950" : "blackAlpha.900"
           }
+          {...register("content")}
           color={color}
         />
         <Button

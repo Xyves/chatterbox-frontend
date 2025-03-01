@@ -28,7 +28,10 @@ const chatSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(postComment.fulfilled, (state, action) => {
-      state.messages.push(action.payload);
+      const exists = state.messages.some((msg) => msg.id === action.payload.id);
+      if (!exists) {
+        state.messages.push(action.payload);
+      }
     });
   },
 });
