@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { postComment } from "./chatActions";
+import { postComment, fetchMessages } from "./chatActions";
 const initialState = {
   messages: [],
   error: null,
@@ -33,6 +33,19 @@ const chatSlice = createSlice({
         state.messages.push(action.payload);
       }
     });
+    builder
+      .addCase(fetchMessages.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchMessages.fulfilled, (state, action) => {
+        console.log("Updating Redux state with messages:", action.payload); // Debugging
+        state.status = "succeeded";
+        state.messages = action.payload; // Make sure this is an array
+      })
+      .addCase(fetchMessages.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+      });
   },
 });
 export const { addMessage, setMessages } = chatSlice.actions;

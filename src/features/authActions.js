@@ -112,29 +112,5 @@ const fetchFriends = createAsyncThunk("chat", async (nickname, thunkAPI) => {
     return thunkAPI.rejectWithValue(error.response.data);
   }
 });
-const fetchMessages = createAsyncThunk(
-  "messages/fetchMessages",
-  async (chat_id, thunkAPI) => {
-    try {
-      const token = thunkAPI.getState().auth.userToken;
-      if (!token) return thunkAPI.rejectWithValue("No token found");
-      const response = await fetch(`${backendUrl}/chat/${chat_id}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      if (!response.ok) {
-        throw new Error("Failed to fetch user data");
-      }
 
-      const data = await response.json();
-      console.log("Messages fetched:", data);
-      return data;
-    } catch (err) {
-      return thunkAPI.rejectWithValue(err.message || "Unknown error");
-    }
-  }
-);
-export { registerUser, loginUser, fetchUser, fetchFriends, fetchMessages };
+export { registerUser, loginUser, fetchUser, fetchFriends };
