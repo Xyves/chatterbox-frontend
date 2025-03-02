@@ -6,7 +6,7 @@ export default function Friend({ friend, onSelectFriend }) {
   // Find chat id between user.id and friend.id -> Move to /chat/:id in chat component fetch messages for chatId sort by latest and friend data
   return (
     <Card.Root
-      background={"purple.300"}
+      background={"#14213d"}
       marginBottom="4"
       rounded="2xl"
       margin="2"
@@ -19,6 +19,7 @@ export default function Friend({ friend, onSelectFriend }) {
         <Button
           aria-labelledby={friend.id}
           width="full"
+          background="none"
           onClick={() => onSelectFriend(friend)}
         >
           <Card.Body>

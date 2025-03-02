@@ -4,7 +4,7 @@ import { Avatar } from "../../ui/avatar";
 
 export default function UserInfo({ user }) {
   return (
-    <Card.Root>
+    <Card.Root background="#0d1b2a">
       <Card.Header />
       <Card.Body>
         <Avatar

@@ -5,9 +5,16 @@ import { useColorMode, useColorModeValue } from "../ui/color-mode";
 export default function Footer() {
   const { toggleColorMode, colorMode } = useColorMode();
 
-  const bg = colorMode === "light" ? "white" : "#848C8E";
+  const bg = colorMode === "light" ? "#0097b6" : "#2a9d8f";
   return (
-    <Stack bg={bg} position="fixed" bottom="0" padding="2" width={"full"}>
+    <Stack
+      bg={bg}
+      position="fixed"
+      bottom="0"
+      padding="2"
+      width={"full"}
+      fontSize="md"
+    >
       <Stack direction="row" align="center" justifyContent={"center"}>
         <Text color={colorMode === "light" ? "gray.900" : "gray.50"}>
           Github:
@@ -18,13 +25,13 @@ export default function Footer() {
             color: colorMode === "light" ? "#435058" : "white",
           }}
         ></i>
-        <a
+        <Link
           href="https://github.com/Xyves "
-          className="text-center"
+          className="text-center text-red-200 text transition-none text-inherit border-none"
           target="_blank"
         >
-          Xyves
-        </a>
+          <Text color="blackAlpha.900">Xyves</Text>
+        </Link>
       </Stack>
     </Stack>
   );

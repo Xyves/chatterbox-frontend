@@ -10,11 +10,11 @@ export default function Friendlist({ friends, onSelectFriend }) {
 
   return (
     <>
-      <Heading fontSize={"3xl"} background={"green.300"} padding="3">
+      <Heading fontSize={"3xl"} padding="3">
         Join your friends
       </Heading>
       <Flex flex="1" width="full" direction={"column"}>
-        <Box height="full" background={"red.300"}>
+        <Box height="full">
           {friends.map((friend) => (
             <Friend
               friend={friend}

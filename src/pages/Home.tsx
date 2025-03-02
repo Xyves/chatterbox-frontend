@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <Box
       height={"100vh"}
-      background={colorMode === "light" ? "#F1F2EE" : "#435058"}
+      background={colorMode === "light" ? "#f1faee" : "#264e4f"}
 
       // backgroundColor={"#497595"}
       /* OR #131415  */
@@ -42,7 +42,7 @@ export default function Home() {
             <Button
               fontWeight={"bold"}
               marginY="5"
-              background="#4D97AA"
+              background={colorMode === "light" ? " #90e0ef" : "#407476"}
               rounded="md"
               color={colorMode === "light" ? "#2d353d" : "whiteAlpha.900"}
             >

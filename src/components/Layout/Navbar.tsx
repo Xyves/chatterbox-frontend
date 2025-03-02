@@ -8,6 +8,7 @@ import {
   Icon,
   Spinner,
   Stack,
+  Text,
   VStack,
 } from "@chakra-ui/react";
 import {
@@ -32,8 +33,12 @@ export default function Navbar() {
   const dispatch = useDispatch();
 
   return (
-    <nav className={`-w-full `}>
-      <Box background={"#DCF763"} backgroundImage={"/images/gradient-fire.png"}>
+    <nav className={"w-full text-red-700"}>
+      <Box
+        background={colorMode === "light" ? "#55c2da" : "#14213d"}
+        backgroundImage={"/images/gradient-fire.png"}
+        color="red.800"
+      >
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <Icon size={"2xl"} marginLeft="6">
             <Link to="/">
@@ -42,13 +47,17 @@ export default function Navbar() {
           </Icon>
           <Flex alignItems={"center"}>
             <Stack direction={"row"} spacing={7}>
-              <Box alignSelf={"center"}>
-                <Link to="/chat">Chat</Link>
+              <Box alignSelf={"center"} color="red.800" textDecoration="red">
+                <Button background={"whiteAlpha.900"} rounded="3xl">
+                  <Link to="/chat" className="">
+                    <Text color="blackAlpha.800">Chat</Text>
+                  </Link>
+                </Button>
               </Box>
               <Button
                 onClick={toggleColorMode}
-                background={colorMode === "light" ? "gray.400" : "gray.800"}
-                color={colorMode === "light" ? "black" : "gray.400"}
+                background={colorMode === "light" ? "#5783db" : "#344e41"}
+                color={colorMode === "light" ? "#f4a261" : "gray.400"}
                 rounded="3xl"
               >
                 {colorMode === "light" ? (
@@ -59,12 +68,7 @@ export default function Navbar() {
               </Button>
               <MenuRoot>
                 <MenuTrigger marginLeft="16" asChild>
-                  <Button
-                    as={Button}
-                    rounded="full"
-                    variant="link"
-                    background={"none"}
-                  >
+                  <Button as={Button} rounded="full" background={"none"}>
                     <Avatar
                       size={"md"}
                       src={
