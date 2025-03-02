@@ -7,7 +7,7 @@ export default function User({ user }) {
     <>
       <Box
         bg="blue.200"
-        height="auto"
+        height="32"
         borderTop="0"
         borderBottom={"6"}
         border={"yellow"}
@@ -17,7 +17,7 @@ export default function User({ user }) {
           <Flex alignItems={"center"}>
             <Box>
               <Avatar
-                boxSize={"28"}
+                boxSize={"24"}
                 src={
                   user
                     ? user.avatar_url

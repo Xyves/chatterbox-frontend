@@ -5,14 +5,18 @@ import { Avatar } from "../../ui/avatar";
 import { useSelector } from "react-redux";
 import Message from "./Message";
 
-export default function MessageList() {
+export default function MessageList({ selectedFriend }) {
   const messages = useSelector((state: RootState) => state.messages.messages);
   const { loading, user, error } = useSelector((state) => state.auth);
   return (
-    <Box>
-      {messages.length > 0 ? (
+    <Box bg={"blue"}>
+      {messages && messages.length > 0 ? (
         messages.map((message) => (
-          <Message message={message} key={message.id} />
+          <Message
+            message={message}
+            key={message.id}
+            selectedFriend={selectedFriend}
+          />
         ))
       ) : (
         <p>Not found</p>

@@ -33,14 +33,7 @@ export default function Chat() {
       dispatch(fetchUser());
     }
   }, [dispatch, userToken]);
-  useEffect(() => {
-    if (id) {
-      dispatch(fetchMessages(id))
-        .unwrap()
-        .then((data) => setMessages(data))
-        .catch((error) => console.error("Error fetching messages:", error));
-    }
-  }, [id, dispatch, user.id]);
+
   useEffect(() => {
     const getFriends = async () => {
       if (userToken) {
@@ -68,7 +61,7 @@ export default function Chat() {
         height="auto"
         gridColumnStart="1"
         gridColumnEnd="2"
-        background={"yellow.400"}
+        background={"#023047"}
       >
         <UserInfo user={user} />
         <Friendlist
