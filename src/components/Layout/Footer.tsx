@@ -11,7 +11,7 @@ export default function Footer() {
       bg={bg}
       position="fixed"
       bottom="0"
-      padding="2"
+      padding="0.5"
       width={"full"}
       fontSize="md"
     >

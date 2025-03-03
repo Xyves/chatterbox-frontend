@@ -7,7 +7,7 @@ export default function User({ user }) {
     <>
       <Box
         bg="blue.200"
-        height="32"
+        height="24"
         borderTop="0"
         borderBottom={"6"}
         border={"yellow"}
@@ -17,7 +17,7 @@ export default function User({ user }) {
           <Flex alignItems={"center"}>
             <Box>
               <Avatar
-                boxSize={"24"}
+                boxSize={"16"}
                 src={
                   user
                     ? user.avatar_url
@@ -36,12 +36,12 @@ export default function User({ user }) {
             >
               <i
                 className="pi pi-search w-full h-full "
-                style={{ fontSize: "4rem", color: "orange" }}
+                style={{ fontSize: "3rem", color: "orange" }}
               ></i>
               <i
                 className="pi pi-phone w-full h-full "
                 style={{
-                  fontSize: "4rem",
+                  fontSize: "3rem",
                   color: "green",
                   marginLeft: "1rem",
                 }}

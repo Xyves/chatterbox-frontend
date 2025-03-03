@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Center } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import User from "./User";
 import MessageList from "./MessageList";
@@ -20,9 +20,9 @@ export default function MainChat({ setMessages, selectedFriend }) {
 
   return (
     <Box
-      margin="16"
       background="green.600"
-      height="2xl"
+      padding="2"
+      height="3xl"
       display="flex"
       flexDirection="column"
     >

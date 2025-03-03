@@ -55,14 +55,8 @@ export default function Chat() {
     <Loading />;
   }
   return (
-    <Grid templateColumns={"12"} height={"88vh"} width="full">
-      <Box
-        overflowY="auto"
-        height="auto"
-        gridColumnStart="1"
-        gridColumnEnd="2"
-        background={"#023047"}
-      >
+    <Grid templateColumns={"14"} height={"88vh"} width="full">
+      <Box overflowY="auto" height="auto" width="3/4" background={"#023047"}>
         <UserInfo user={user} />
         <Friendlist
           friends={memoizedFriends}
@@ -70,11 +64,10 @@ export default function Chat() {
         />
       </Box>
       <Box
-        gridColumnStart="3"
+        gridColumnStart="2"
         background="#020887"
         gridColumnEnd="12"
         rounded="2xl"
-        height="11/12"
       >
         {id ? (
           <MainChat
