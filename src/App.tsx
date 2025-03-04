@@ -14,6 +14,7 @@ import { ProtectedRoute } from "./pages/ProtectedRoute";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { logout } from "./features/authSlice";
+import ProfileSettings from "./pages/ProfileSettings";
 function App() {
   const dispatch = useDispatch();
 
@@ -49,10 +50,10 @@ function App() {
               }
             ></Route>
             <Route
-              path="/profile/:id"
+              path="/settings"
               element={
                 <ProtectedRoute>
-                  <Profile />
+                  <ProfileSettings />
                 </ProtectedRoute>
               }
             ></Route>
