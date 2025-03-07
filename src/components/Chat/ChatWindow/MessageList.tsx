@@ -1,15 +1,12 @@
 import { Box, Heading, Text } from "@chakra-ui/react";
-import React from "react";
 import { RootState } from "../../../app/store";
-import { Avatar } from "../../ui/avatar";
 import { useSelector } from "react-redux";
 import Message from "./Message";
 
 export default function MessageList({ selectedFriend }) {
   const messages = useSelector((state: RootState) => state.messages.messages);
-  const { loading, user, error } = useSelector((state) => state.auth);
   return (
-    <Box bg={"blue"}>
+    <Box bg={"#FCAB10"}>
       {messages && messages.length > 0 ? (
         messages.map((message) => (
           <Message

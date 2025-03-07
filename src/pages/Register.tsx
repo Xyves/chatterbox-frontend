@@ -1,12 +1,4 @@
-import {
-  Box,
-  Flex,
-  Heading,
-  Input,
-  Spinner,
-  Text,
-  useSelect,
-} from "@chakra-ui/react";
+import { Box, Flex, Heading, Input, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { PasswordInput } from "../components/ui/password-input";
 import { Field } from "../components/ui/field";
@@ -34,7 +26,6 @@ export default function Register() {
     email: string;
   }
   const submitForm: SubmitHandler<registerData> = (data) => {
-    console.log("registered:", data);
     data.email = data.email.toLowerCase();
     dispatch(registerUser(data));
     navigate("/login");

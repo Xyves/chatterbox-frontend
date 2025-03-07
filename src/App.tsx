@@ -18,13 +18,13 @@ import ProfileSettings from "./pages/ProfileSettings";
 function App() {
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   const token = localStorage.getItem("userToken"); // Check token in local storage
+  useEffect(() => {
+    const token = localStorage.getItem("userToken"); // Check token in local storage
 
-  //   if (!token) {
-  //     dispatch(logout()); // Clear state if no token exists
-  //   }
-  // }, [dispatch]);
+    if (!token) {
+      dispatch(logout()); // Clear state if no token exists
+    }
+  }, [dispatch]);
   return (
     <ChakraProvider value={defaultSystem}>
       <BrowserRouter>

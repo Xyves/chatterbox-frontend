@@ -5,7 +5,6 @@ import {
   Grid,
   Heading,
   Input,
-  Spinner,
   Stack,
   Text,
 } from "@chakra-ui/react";
@@ -16,6 +15,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../features/authActions.js";
 import Loading from "../components/Loading.js";
+import { useColorMode } from "../components/ui/color-mode.js";
 
 interface loginData {
   nickname: string;
@@ -23,6 +23,8 @@ interface loginData {
 }
 
 export default function Login() {
+  const { toggleColorMode, colorMode } = useColorMode();
+
   const { loading, user, error, success } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm<loginData>();
@@ -37,10 +39,11 @@ export default function Login() {
     <Loading />;
   }
   return (
+    // #2C4251
     <Flex justifyContent={"center"} alignContent={"center"} height="55vh">
       <Box
-        background={"white"}
-        color={"black"}
+        background={colorMode === "light" ? "whiteAlpha.900" : "#2C4251"}
+        color={colorMode === "light" ? "blackAlpha.900" : "whiteAlpha.950"}
         display="flex"
         justifyContent={"center"}
         marginTop="32"
@@ -69,7 +72,7 @@ export default function Login() {
                     marginBottom="5"
                   />
                 </Field>
-                <Field label="Password" required>
+                <Field label="password" required>
                   <PasswordInput
                     // value={value.password}
 

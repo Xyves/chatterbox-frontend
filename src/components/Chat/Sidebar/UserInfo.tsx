@@ -1,10 +1,13 @@
 import { Card } from "@chakra-ui/react";
-import React from "react";
 import { Avatar } from "../../ui/avatar";
+import { useColorMode } from "../../ui/color-mode";
 
 export default function UserInfo({ user }) {
+  const { toggleColorMode, colorMode } = useColorMode();
+
+  const bg = colorMode === "light" ? "#90e0ef" : "#0E273C";
   return (
-    <Card.Root background="#0d1b2a">
+    <Card.Root background={bg}>
       <Card.Header />
       <Card.Body>
         <Avatar

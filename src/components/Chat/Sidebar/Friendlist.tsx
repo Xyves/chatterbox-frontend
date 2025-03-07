@@ -1,16 +1,16 @@
-import React, { useEffect, useMemo, useState } from "react";
 import Friend from "./Friend";
 import { Box, Flex, Heading } from "@chakra-ui/react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchFriends } from "../../../features/authActions";
+import { useColorMode } from "../../ui/color-mode";
 export default function Friendlist({ friends, onSelectFriend }) {
-  const dispatch = useDispatch();
-  const { userToken } = useSelector((state) => state.auth);
-  const { loading, user, error } = useSelector((state) => state.auth);
+  const { toggleColorMode, colorMode } = useColorMode();
 
   return (
     <>
-      <Heading fontSize={"3xl"} padding="3">
+      <Heading
+        fontSize={"3xl"}
+        padding="3"
+        color={colorMode === "light" ? "black" : "white"}
+      >
         Join your friends
       </Heading>
       <Flex flex="1" width="full" direction={"column"}>

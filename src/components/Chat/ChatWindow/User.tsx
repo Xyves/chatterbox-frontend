@@ -1,12 +1,14 @@
 import { Box, Flex, Heading } from "@chakra-ui/react";
 import { Avatar } from "../../ui/avatar";
-import React from "react";
+import { useColorMode } from "../../ui/color-mode";
 
 export default function User({ user }) {
+  const { toggleColorMode, colorMode } = useColorMode();
+  const bg = colorMode === "light" ? "white" : "#154D57";
   return (
     <>
       <Box
-        bg="blue.200"
+        bg={bg}
         height="24"
         borderTop="0"
         borderBottom={"6"}

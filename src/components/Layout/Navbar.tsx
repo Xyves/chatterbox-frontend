@@ -1,16 +1,6 @@
 import "primeicons/primeicons.css";
 
-import {
-  Box,
-  Button,
-  Flex,
-  Heading,
-  Icon,
-  Spinner,
-  Stack,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Icon, Stack, Text, VStack } from "@chakra-ui/react";
 import {
   MenuContent,
   MenuItem,
@@ -28,14 +18,13 @@ import { Link } from "react-router";
 
 export default function Navbar() {
   const { loading, user, error } = useSelector((state) => state.auth);
-  console.log("user is:", user);
   const { toggleColorMode, colorMode } = useColorMode();
   const dispatch = useDispatch();
 
   return (
     <nav className={"w-full text-red-700"}>
       <Box
-        background={colorMode === "light" ? "#55c2da" : "#14213d"}
+        background={colorMode === "light" ? "#55c2da" : "#2C4251"}
         backgroundImage={"/images/gradient-fire.png"}
         color="red.800"
       >
@@ -48,16 +37,29 @@ export default function Navbar() {
           <Flex alignItems={"center"}>
             <Stack direction={"row"} spacing={7}>
               <Box alignSelf={"center"} color="red.800" textDecoration="red">
-                <Button background={"whiteAlpha.900"} rounded="3xl">
-                  <Link to="/chat" className="">
-                    <Text color="blackAlpha.800">Chat</Text>
+                <Button
+                  background={
+                    colorMode === "light" ? "whiteAlpha.900" : "#2C4251"
+                  }
+                  rounded="3xl"
+                >
+                  <Link to={user ? "/chat" : "/login"} className="">
+                    <Text
+                      fontWeight={"bold"}
+                      color={colorMode === "light" ? "#f4a261" : "gray.200"}
+                    >
+                      Chat
+                    </Text>
                   </Link>
                 </Button>
               </Box>
               <Button
                 onClick={toggleColorMode}
-                background={colorMode === "light" ? "#5783db" : "#344e41"}
-                color={colorMode === "light" ? "#f4a261" : "gray.400"}
+                fontWeight={"bold"}
+                background={
+                  colorMode === "light" ? "whiteAlpha.900" : "#2C4251"
+                }
+                color={colorMode === "light" ? "#f4a261" : "gray.200"}
                 rounded="3xl"
               >
                 {colorMode === "light" ? (
@@ -71,6 +73,9 @@ export default function Navbar() {
                   <Button as={Button} rounded="full" background={"none"}>
                     <Avatar
                       size={"md"}
+                      border={"green"}
+                      borderBlockWidth={"2"}
+                      borderStyle={"double"}
                       src={
                         user
                           ? user.avatar_url

@@ -1,12 +1,15 @@
 import { Button, Card, Heading, HStack, Stack } from "@chakra-ui/react";
 import { Avatar } from "../../ui/avatar";
 import { Link } from "react-router";
+import { useColorMode } from "../../ui/color-mode";
 
 export default function Friend({ friend, onSelectFriend }) {
-  // Find chat id between user.id and friend.id -> Move to /chat/:id in chat component fetch messages for chatId sort by latest and friend data
+  const { toggleColorMode, colorMode } = useColorMode();
+
+  const bg = colorMode === "light" ? "#2B9EB3" : "#0E273C";
   return (
     <Card.Root
-      background={"#14213d"}
+      background={bg}
       marginBottom="4"
       rounded="2xl"
       margin="2"

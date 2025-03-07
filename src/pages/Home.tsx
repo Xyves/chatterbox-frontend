@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <Box
       height={"100vh"}
-      background={colorMode === "light" ? "#f1faee" : "#264e4f"}
+      background={colorMode === "light" ? "#f1faee" : "#242424"}
 
       // backgroundColor={"#497595"}
       /* OR #131415  */

@@ -11,7 +11,6 @@ export default function ChatInput({ setMessages, messages = [] }) {
   const dispatch = useDispatch();
   const { handleSubmit, register } = useForm();
   const { user } = useSelector((state) => state.auth);
-
   const { id } = useParams();
   const color = colorMode === "light" ? "blackAlpha.900" : "whiteAlpha.950";
   interface submitData {
@@ -24,8 +23,6 @@ export default function ChatInput({ setMessages, messages = [] }) {
     const newComment = await dispatch(
       postComment({ chat_id: id, content: data.content, sender_id: user.id })
     ).unwrap();
-    console.log("New comment:", newComment);
-    // dispatch(addMessage(newComment));
   };
   return (
     <>
@@ -33,6 +30,8 @@ export default function ChatInput({ setMessages, messages = [] }) {
         <Input
           placeholder="Say something..."
           variant="subtle"
+          borderColor={color}
+          borderWidth={"medium"}
           background={
             colorMode === "light" ? "whiteAlpha.950" : "blackAlpha.900"
           }

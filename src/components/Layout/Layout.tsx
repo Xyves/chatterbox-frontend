@@ -1,7 +1,6 @@
 import Navbar from "./Navbar";
 import { Outlet } from "react-router";
 import Footer from "./Footer";
-import { Box, Flex } from "@chakra-ui/react";
 
 export default function Layout() {
   return (
