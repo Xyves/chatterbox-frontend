@@ -10,14 +10,15 @@ import {
   MenuTrigger,
 } from "../ui/menu";
 import { logout } from "../../features/authSlice";
-import { useColorMode, useColorModeValue } from "../ui/color-mode";
+import { useColorMode } from "../ui/color-mode";
 
 import { Avatar } from "../ui/avatar";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router";
+import { RootState } from "../../app/store";
 
 export default function Navbar() {
-  const { loading, user, error } = useSelector((state) => state.auth);
+  const { user } = useSelector((state: RootState) => state.auth);
   const { toggleColorMode, colorMode } = useColorMode();
   const dispatch = useDispatch();
 
@@ -84,12 +85,7 @@ export default function Navbar() {
                     />
                   </Button>
                 </MenuTrigger>
-                <VStack
-                  align="center"
-                  spacing={3}
-                  marginX={"8"}
-                  display={"flex"}
-                ></VStack>
+                <VStack align="center" marginX={"8"} display={"flex"}></VStack>
                 <MenuContent>
                   <MenuItemGroup>
                     <Avatar

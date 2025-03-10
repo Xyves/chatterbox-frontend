@@ -4,7 +4,7 @@ import { Link } from "react-router";
 import { useColorMode } from "../../ui/color-mode";
 
 export default function Friend({ friend, onSelectFriend }) {
-  const { toggleColorMode, colorMode } = useColorMode();
+  const { colorMode } = useColorMode();
 
   const bg = colorMode === "light" ? "#2B9EB3" : "#0E273C";
   return (

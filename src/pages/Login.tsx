@@ -23,14 +23,12 @@ interface loginData {
 }
 
 export default function Login() {
-  const { toggleColorMode, colorMode } = useColorMode();
-
-  const { loading, user, error, success } = useSelector((state) => state.auth);
+  const { colorMode } = useColorMode();
+  const { loading, user, error } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm<loginData>();
   const submitForm: SubmitHandler<loginData> = async (data) => {
     await dispatch(loginUser(data));
-    console.log(user);
   };
   if (user) {
     return <Navigate to="/chat" replace />;

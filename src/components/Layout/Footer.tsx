@@ -3,7 +3,7 @@ import "primeicons/primeicons.css";
 import { useColorMode, useColorModeValue } from "../ui/color-mode";
 
 export default function Footer() {
-  const { toggleColorMode, colorMode } = useColorMode();
+  const { colorMode } = useColorMode();
 
   const bg = colorMode === "light" ? "#55c2da" : "#2C4251";
   return (

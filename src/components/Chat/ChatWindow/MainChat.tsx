@@ -8,8 +8,14 @@ import { useParams } from "react-router";
 import { fetchMessages } from "../../../features/chatActions";
 import { useColorMode } from "../../ui/color-mode";
 
-export default function MainChat({ setMessages, selectedFriend }) {
-  const { toggleColorMode, colorMode } = useColorMode();
+export default function MainChat({
+  setMessages,
+  selectedFriend,
+}: {
+  setMessages: any;
+  selectedFriend: object;
+}) {
+  const { colorMode } = useColorMode();
   const { id: chat_id } = useParams();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -28,7 +34,7 @@ export default function MainChat({ setMessages, selectedFriend }) {
     >
       <User user={selectedFriend} />
       <Box flex="1" overflow="auto">
-        <MessageList messages={messages} selectedFriend={selectedFriend} />
+        <MessageList selectedFriend={selectedFriend} />
       </Box>
       <Box width="full " padding="6">
         <ChatInput setMessages={setMessages} messages={messages} />

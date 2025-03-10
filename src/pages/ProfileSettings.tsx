@@ -1,6 +1,5 @@
 import { Box, Input } from "@chakra-ui/react";
-import React, { useEffect } from "react";
-import { Form } from "react-hook-form";
+import { useEffect } from "react";
 import { Field } from "../components/ui/field";
 import { useState } from "react";
 const backendUrl = "http://127.0.0.1:4000/api";
@@ -25,7 +24,7 @@ export default function ProfileSettings() {
       console.log("Backend response:", data);
       setUserData(data);
       return data;
-    } catch (error) {
+    } catch (error: any) {
       if (error.response && error.response.data.message) {
         return error.response.data.message;
       } else {

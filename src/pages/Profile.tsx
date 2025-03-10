@@ -18,7 +18,7 @@ export default function Profile() {
       console.log("Backend response:", data);
       setUserData(data);
       return data;
-    } catch (error) {
+    } catch (error: any) {
       if (error.response && error.response.data.message) {
         return thunkAPI.rejectWithValue(error.response.data.message);
       } else {

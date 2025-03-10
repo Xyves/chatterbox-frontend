@@ -12,6 +12,7 @@ import MainChat from "../components/Chat/ChatWindow/MainChat";
 import { useParams } from "react-router";
 import { fetchFriends } from "../features/authActions";
 import { useColorMode } from "../components/ui/color-mode";
+import { RootState } from "../app/store";
 export default function Chat() {
   const { toggleColorMode, colorMode } = useColorMode();
 
@@ -19,7 +20,7 @@ export default function Chat() {
   const [messages, setMessages] = useState([]);
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { loading, user, error } = useSelector((state) => state.auth);
+  const { loading, user } = useSelector((state: RootState) => state.auth);
   const { userToken } = useSelector((state) => state.auth);
   const [friends, setFriends] = useState([]);
   const [selectedFriend, setSelectedFriend] = useState(null);

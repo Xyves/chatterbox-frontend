@@ -1,9 +1,13 @@
-import { Box, Heading, Text } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import { RootState } from "../../../app/store";
 import { useSelector } from "react-redux";
 import Message from "./Message";
 
-export default function MessageList({ selectedFriend }) {
+export default function MessageList({
+  selectedFriend,
+}: {
+  selectedFriend: object;
+}) {
   const messages = useSelector((state: RootState) => state.messages.messages);
   return (
     <Box bg={"#FCAB10"}>

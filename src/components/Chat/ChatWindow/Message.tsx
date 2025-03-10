@@ -3,8 +3,14 @@ import { Avatar } from "../../ui/avatar";
 import { useSelector } from "react-redux";
 import moment from "moment";
 moment().format();
-export default function Message({ message, selectedFriend }) {
-  const { loading, user, error } = useSelector((state) => state.auth);
+export default function Message({
+  message,
+  selectedFriend,
+}: {
+  message: object;
+  selectedFriend: object;
+}) {
+  const { user } = useSelector((state) => state.auth);
   const { sender_id, content, time, id } = message;
   const currentTime = moment.unix(time).format("HH:mm YYYY-MM-DD");
   return (

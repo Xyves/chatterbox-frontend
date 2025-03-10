@@ -3,7 +3,7 @@ import { Avatar } from "../../ui/avatar";
 import { useColorMode } from "../../ui/color-mode";
 
 export default function User({ user }) {
-  const { toggleColorMode, colorMode } = useColorMode();
+  const { colorMode } = useColorMode();
   const bg = colorMode === "light" ? "white" : "#154D57";
   return (
     <>

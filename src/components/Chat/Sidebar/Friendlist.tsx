@@ -2,7 +2,7 @@ import Friend from "./Friend";
 import { Box, Flex, Heading } from "@chakra-ui/react";
 import { useColorMode } from "../../ui/color-mode";
 export default function Friendlist({ friends, onSelectFriend }) {
-  const { toggleColorMode, colorMode } = useColorMode();
+  const { colorMode } = useColorMode();
 
   return (
     <>

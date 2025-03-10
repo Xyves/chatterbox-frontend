@@ -1,16 +1,20 @@
-import { Box, Button, Input } from "@chakra-ui/react";
+import { Button, Input } from "@chakra-ui/react";
 import { useColorMode } from "../../ui/color-mode";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { postComment } from "../../../features/chatActions";
-import { Form } from "react-hook-form";
-import { addMessage } from "../../../features/chatSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
-export default function ChatInput({ setMessages, messages = [] }) {
-  const { toggleColorMode, colorMode } = useColorMode();
+import { RootState } from "../../../app/store";
+export default function ChatInput() {
+  interface SubmitData {
+    chat_id: string;
+    id: number;
+    content: string;
+  }
+  const { colorMode } = useColorMode();
   const dispatch = useDispatch();
-  const { handleSubmit, register } = useForm();
-  const { user } = useSelector((state) => state.auth);
+  const { register, handleSubmit } = useForm<submitData>();
+  const { user } = useSelector((state: RootState) => state.auth);
   const { id } = useParams();
   const color = colorMode === "light" ? "blackAlpha.900" : "whiteAlpha.950";
   interface submitData {
@@ -23,6 +27,7 @@ export default function ChatInput({ setMessages, messages = [] }) {
     const newComment = await dispatch(
       postComment({ chat_id: id, content: data.content, sender_id: user.id })
     ).unwrap();
+    console.log(newComment);
   };
   return (
     <>

@@ -6,7 +6,6 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import Home from "./pages/Home";
 import Layout from "./components/Layout/Layout";
 import Chat from "./pages/Chat";
-import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ErrorPage from "./pages/ErrorPage";

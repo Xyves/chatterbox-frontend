@@ -1,9 +1,9 @@
-import { Box, Button, Container, Flex, Heading } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading } from "@chakra-ui/react";
 import "../index.css";
 import { useColorMode } from "../components/ui/color-mode";
 import { Link } from "react-router";
 export default function Home() {
-  const { toggleColorMode, colorMode } = useColorMode();
+  const { colorMode } = useColorMode();
 
   return (
     <Box
