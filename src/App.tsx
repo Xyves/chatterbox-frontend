@@ -12,6 +12,7 @@ import ErrorPage from "./pages/ErrorPage";
 import { ProtectedRoute } from "./pages/ProtectedRoute";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
+//@ts-ignore
 import { logout } from "./features/authSlice";
 import ProfileSettings from "./pages/ProfileSettings";
 function App() {

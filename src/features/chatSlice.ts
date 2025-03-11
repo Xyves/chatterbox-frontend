@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { postComment, fetchMessages } from "./chatActions";
+//@ts-ignore
+import { postComment, fetchMessages } from "./chatActions.js";
 const initialState = {
   messages: [],
   error: null,

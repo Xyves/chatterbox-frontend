@@ -3,9 +3,14 @@ import { useEffect } from "react";
 import { Field } from "../components/ui/field";
 import { useState } from "react";
 const backendUrl = "http://127.0.0.1:4000/api";
-
+import { UserData } from "../types";
 export default function ProfileSettings() {
-  const [userData, setUserData] = useState({});
+  const [userData, setUserData] = useState<UserData>({
+    nickname: "",
+    bio: "",
+    email: "",
+    avatar_url: "",
+  });
   const getUserData = async () => {
     const token = localStorage.getItem("userToken");
     try {

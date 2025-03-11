@@ -2,6 +2,8 @@ import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import { Avatar } from "../../ui/avatar";
 import { useSelector } from "react-redux";
 import moment from "moment";
+import { RootState } from "../../../app/store";
+import { useAppSelector } from "../../../app/hooks";
 moment().format();
 export default function Message({
   message,
@@ -10,7 +12,7 @@ export default function Message({
   message: object;
   selectedFriend: object;
 }) {
-  const { user } = useSelector((state) => state.auth);
+  const { user } = useAppSelector((state: RootState) => state.auth);
   const { sender_id, content, time, id } = message;
   const currentTime = moment.unix(time).format("HH:mm YYYY-MM-DD");
   return (

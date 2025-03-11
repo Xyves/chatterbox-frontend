@@ -1,17 +1,20 @@
 import { Box, Flex, Heading, Input, Text } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { PasswordInput } from "../components/ui/password-input";
 import { Field } from "../components/ui/field";
 import { Button } from "../components/ui/button";
 import { Link, Navigate, useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { SubmitHandler, useForm } from "react-hook-form";
+// @ts-ignore
 import { registerUser } from "../features/authActions.js";
 import Loading from "../components/Loading.js";
+import { RootState } from "../app/store.js";
+import { useAppSelector } from "../app/hooks.js";
 
 export default function Register() {
-  const { loading, userInfo, error, success, userToken } = useSelector(
-    (state) => state.auth
+  const { loading, user, userToken, error } = useAppSelector(
+    (state: RootState) => state.auth
   );
 
   const navigate = useNavigate();
@@ -33,6 +36,9 @@ export default function Register() {
 
   if (loading) {
     <Loading />;
+  }
+  if (error) {
+    <Navigate to={"/"} />;
   }
   // if (success) return <Navigate to="/login" replace />;
   if (userToken) return <Navigate to="/chat" replace />;

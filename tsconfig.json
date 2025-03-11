@@ -10,7 +10,7 @@
     "typeRoots": ["./node_modules/@types", "./types"],
     "resolveJsonModule": true,
     "allowJs": true,
-    "checkJs": false,
+    "checkJs": true,
     "strict": true
   }
 }

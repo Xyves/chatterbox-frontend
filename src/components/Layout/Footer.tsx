@@ -1,6 +1,6 @@
 import { Stack, Link, Text } from "@chakra-ui/react";
 import "primeicons/primeicons.css";
-import { useColorMode, useColorModeValue } from "../ui/color-mode";
+import { useColorMode } from "../ui/color-mode";
 
 export default function Footer() {
   const { colorMode } = useColorMode();

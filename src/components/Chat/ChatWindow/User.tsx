@@ -1,8 +1,9 @@
 import { Box, Flex, Heading } from "@chakra-ui/react";
 import { Avatar } from "../../ui/avatar";
 import { useColorMode } from "../../ui/color-mode";
+import { UserData } from "../../../types";
 
-export default function User({ user }) {
+export default function User({ user }: { user: UserData }) {
   const { colorMode } = useColorMode();
   const bg = colorMode === "light" ? "white" : "#154D57";
   return (

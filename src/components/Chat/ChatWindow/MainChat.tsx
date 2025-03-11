@@ -5,8 +5,10 @@ import MessageList from "./MessageList";
 import ChatInput from "./ChatInput";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
+//@ts-ignore
 import { fetchMessages } from "../../../features/chatActions";
 import { useColorMode } from "../../ui/color-mode";
+import { RootState } from "../../../app/store";
 
 export default function MainChat({
   setMessages,
@@ -21,7 +23,7 @@ export default function MainChat({
   useEffect(() => {
     dispatch(fetchMessages(chat_id));
   }, [dispatch, chat_id]);
-  const messages = useSelector((state) => state.messages.messages);
+  const messages = useSelector((state: RootState) => state.messages.messages);
   const bg = colorMode === "light" ? "#2B9EB3" : "#154D57";
 
   return (

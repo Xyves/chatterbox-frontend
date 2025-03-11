@@ -13,9 +13,12 @@ import { PasswordInput } from "../components/ui/password-input";
 import { Link, Navigate } from "react-router";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
+//@ts-ignore
 import { loginUser } from "../features/authActions.js";
 import Loading from "../components/Loading.js";
 import { useColorMode } from "../components/ui/color-mode.js";
+import { RootState } from "../app/store.js";
+import { useAppSelector } from "../app/hooks.js";
 
 interface loginData {
   nickname: string;
@@ -24,7 +27,9 @@ interface loginData {
 
 export default function Login() {
   const { colorMode } = useColorMode();
-  const { loading, user, error } = useSelector((state) => state.auth);
+  const { loading, user, error } = useAppSelector(
+    (state: RootState) => state.auth
+  );
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm<loginData>();
   const submitForm: SubmitHandler<loginData> = async (data) => {

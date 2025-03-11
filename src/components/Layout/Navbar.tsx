@@ -9,16 +9,18 @@ import {
   MenuSeparator,
   MenuTrigger,
 } from "../ui/menu";
+//@ts-ignore
 import { logout } from "../../features/authSlice";
 import { useColorMode } from "../ui/color-mode";
 
 import { Avatar } from "../ui/avatar";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router";
 import { RootState } from "../../app/store";
+import { useAppSelector } from "../../app/hooks";
 
 export default function Navbar() {
-  const { user } = useSelector((state: RootState) => state.auth);
+  const { user } = useAppSelector((state: RootState) => state.auth);
   const { toggleColorMode, colorMode } = useColorMode();
   const dispatch = useDispatch();
 
@@ -36,7 +38,7 @@ export default function Navbar() {
             </Link>
           </Icon>
           <Flex alignItems={"center"}>
-            <Stack direction={"row"} spacing={7}>
+            <Stack direction={"row"} /*spacing={7}*/>
               <Box alignSelf={"center"} color="red.800" textDecoration="red">
                 <Button
                   background={

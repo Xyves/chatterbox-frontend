@@ -3,16 +3,19 @@ import "primeicons/primeicons.css";
 
 import Friendlist from "../components/Chat/Sidebar/Friendlist";
 import { useEffect, useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+//@ts-ignore
 import { fetchUser } from "../features/authActions";
 import Loading from "../components/Loading";
 
 import UserInfo from "../components/Chat/Sidebar/UserInfo";
 import MainChat from "../components/Chat/ChatWindow/MainChat";
 import { useParams } from "react-router";
+//@ts-ignore
 import { fetchFriends } from "../features/authActions";
 import { useColorMode } from "../components/ui/color-mode";
 import { RootState } from "../app/store";
+import { useAppSelector } from "../app/hooks";
 export default function Chat() {
   const { toggleColorMode, colorMode } = useColorMode();
 
@@ -20,8 +23,9 @@ export default function Chat() {
   const [messages, setMessages] = useState([]);
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { loading, user } = useSelector((state: RootState) => state.auth);
-  const { userToken } = useSelector((state) => state.auth);
+  const { loading, user, userToken } = useAppSelector(
+    (state: RootState) => state.auth
+  );
   const [friends, setFriends] = useState([]);
   const [selectedFriend, setSelectedFriend] = useState(null);
   useEffect(() => {
