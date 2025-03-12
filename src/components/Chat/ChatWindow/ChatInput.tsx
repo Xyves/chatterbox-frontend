@@ -7,6 +7,7 @@ import { useParams } from "react-router";
 import { RootState } from "../../../app/store";
 import { UserData } from "../../../types";
 import { useAppSelector } from "../../../app/hooks";
+import "primeicons/primeicons.css";
 export default function ChatInput() {
   interface SubmitData {
     chat_id: string;
@@ -35,10 +36,12 @@ export default function ChatInput() {
     <>
       <form onSubmit={handleSubmit(submitForm)}>
         <Input
-          placeholder="Say something..."
+          placeholder="Type a message..."
           variant="subtle"
+          width="lg"
           borderColor={color}
           borderWidth={"medium"}
+          rounded="lg"
           background={
             colorMode === "light" ? "whiteAlpha.950" : "blackAlpha.900"
           }
@@ -49,11 +52,11 @@ export default function ChatInput() {
           bg="blue.500"
           rounded="2xl"
           marginTop="0.5"
+          className="pi pi-send
+"
           color={color}
           type="submit"
-        >
-          Submit Message
-        </Button>
+        ></Button>
       </form>
     </>
   );

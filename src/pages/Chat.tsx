@@ -63,7 +63,13 @@ export default function Chat() {
           onSelectFriend={setSelectedFriend}
         />
       </Box>
-      <Box gridColumnStart="2" gridColumnEnd="12" rounded="2xl">
+      <Box
+        gridColumnStart="2"
+        gridColumnEnd="11"
+        rounded="2xl"
+        width="10/12"
+        margin="auto"
+      >
         {id ? (
           <MainChat
             messages={messages}

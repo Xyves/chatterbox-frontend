@@ -10,7 +10,7 @@ export default function MessageList({
 }) {
   const messages = useSelector((state: RootState) => state.messages.messages);
   return (
-    <Box bg={"#FCAB10"}>
+    <Box bg={"#216869"}>
       {messages && messages.length > 0 ? (
         messages.map((message) => (
           <Message

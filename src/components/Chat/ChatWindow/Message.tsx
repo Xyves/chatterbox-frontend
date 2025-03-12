@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 import moment from "moment";
 import { RootState } from "../../../app/store";
 import { useAppSelector } from "../../../app/hooks";
+import { useColorMode } from "../../ui/color-mode";
+
 moment().format();
 export default function Message({
   message,
@@ -12,30 +14,32 @@ export default function Message({
   message: object;
   selectedFriend: object;
 }) {
+  const { colorMode } = useColorMode();
   const { user } = useAppSelector((state: RootState) => state.auth);
   const { sender_id, content, time, id } = message;
   const currentTime = moment.unix(time).format("HH:mm YYYY-MM-DD");
+  const color = colorMode === "light" ? "white" : "white";
   return (
     <Box
-      display="flex"
       gap="4"
       key={message.id}
       paddingX="8"
       marginBottom={"4"}
       marginLeft={message.sender_id != user.id ? "" : "auto"}
-      width="1/2"
+      width="2xl"
+      color={color}
       marginRight={"10"}
     >
       <Flex
         alignItems="center"
+        justifyContent={"center"}
         flexDirection={message.sender_id !== user.id ? "row" : "row-reverse"}
-        alignContent={"center"}
         gap={4}
         width="full"
       >
         <Avatar
           boxSize={"10"}
-          marginTop="2"
+          // marginTop="12"
           src={
             message.sender_id != user.id
               ? selectedFriend.avatar_url
@@ -46,9 +50,11 @@ export default function Message({
               : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png"
           }
         />
-        <Box padding="3" width={"4/5"}>
+        <Box padding="3" width={"10/12"}>
           <Heading>
-            <Text>{sender_id}</Text>
+            <Text fontWeight={"bolder"}>
+              {sender_id === user.id ? user.nickname : selectedFriend.nickname}
+            </Text>
             <Text fontSize={"x-small"}>{currentTime}</Text>
           </Heading>
           <Heading

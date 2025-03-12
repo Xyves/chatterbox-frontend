@@ -7,6 +7,7 @@ export default function Friend({ friend, onSelectFriend }) {
   const { colorMode } = useColorMode();
 
   const bg = colorMode === "light" ? "#2B9EB3" : "#0E273C";
+  const color = colorMode === "light" ? "black" : "white";
   return (
     <Card.Root
       background={bg}
@@ -25,7 +26,7 @@ export default function Friend({ friend, onSelectFriend }) {
           background="none"
           onClick={() => onSelectFriend(friend)}
         >
-          <Card.Body>
+          <Card.Body color={color}>
             <HStack gap="3">
               <Avatar
                 src={
