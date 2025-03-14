@@ -101,7 +101,7 @@ export default function Navbar() {
                     <p>{user ? user.nickname : ""}</p>
                     <MenuSeparator />
                     <MenuItem value="Account Settings">
-                      <Link to="/profile/settings">Account Settings</Link>
+                      <Link to="/settings">Account Settings</Link>
                     </MenuItem>
                     {!user ? (
                       <MenuItem value="login">
