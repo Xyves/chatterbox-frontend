@@ -8,6 +8,7 @@ import persistReducer from "redux-persist/es/persistReducer";
 //@ts-ignore
 import storage from "redux-persist/lib/storage";
 import messagesReducer from "../features/chatSlice.js";
+import { AuthState, ChatState } from "../types.js";
 const persistConfig = {
   key: "root",
   storage,
@@ -26,6 +27,9 @@ const store = configureStore({
 });
 const persistor = persistStore(store);
 export type AppStore = typeof store;
-export type RootState = ReturnType<AppStore["getState"]>;
+export type RootState = {
+  auth: AuthState;
+  messages: ChatState;
+};
 export type AppDispatch = typeof store.dispatch;
 export { store, persistor };
