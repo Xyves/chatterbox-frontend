@@ -8,12 +8,14 @@ import { Provider } from "react-redux";
 import React from "react";
 import { PersistGate } from "redux-persist/integration/react";
 import { ColorModeProvider } from "./components/ui/color-mode.tsx";
+import { ApplyRootStyles } from "./components/ApplyRootStyles.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <ColorModeProvider>
+          <ApplyRootStyles />
           <App />
         </ColorModeProvider>
       </PersistGate>
