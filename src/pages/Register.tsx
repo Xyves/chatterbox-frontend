@@ -4,22 +4,22 @@ import { PasswordInput } from "../components/ui/password-input";
 import { Field } from "../components/ui/field";
 import { Button } from "../components/ui/button";
 import { Link, Navigate, useNavigate } from "react-router";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { SubmitHandler, useForm } from "react-hook-form";
 // @ts-ignore
 import { registerUser } from "../features/authActions.js";
 import Loading from "../components/Loading.js";
-import { RootState } from "../app/store.js";
 import { useAppSelector } from "../app/hooks.js";
+import { AuthState } from "../types.js";
 
 export default function Register() {
-  const { loading, user, userToken, error } = useAppSelector(
-    (state: RootState) => state.auth
+  const { loading, userToken, error } = useAppSelector(
+    (state: { auth: AuthState }) => state.auth
   );
 
   const navigate = useNavigate();
 
-  useEffect(() => {}, [navigate, userInfo, success]);
+  useEffect(() => {}, [navigate]);
 
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm<registerData>();
@@ -29,6 +29,7 @@ export default function Register() {
     email: string;
   }
   const submitForm: SubmitHandler<registerData> = (data) => {
+    console.log("user data:", data);
     data.email = data.email.toLowerCase();
     dispatch(registerUser(data));
     navigate("/login");
@@ -37,9 +38,9 @@ export default function Register() {
   if (loading) {
     <Loading />;
   }
-  if (error) {
-    <Navigate to={"/"} />;
-  }
+  // if (error) {
+  //   <Navigate to={"/"} />;
+  // }
   // if (success) return <Navigate to="/login" replace />;
   if (userToken) return <Navigate to="/chat" replace />;
   return (

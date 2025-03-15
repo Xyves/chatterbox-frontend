@@ -1,24 +1,29 @@
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import { Avatar } from "../../ui/avatar";
-import { useSelector } from "react-redux";
+
 import moment from "moment";
 import { RootState } from "../../../app/store";
 import { useAppSelector } from "../../../app/hooks";
 import { useColorMode } from "../../ui/color-mode";
+import { AuthState, MessageInterface, UserData } from "../../../types";
+import { redirect } from "react-router";
 
 moment().format();
 export default function Message({
   message,
   selectedFriend,
 }: {
-  message: object;
-  selectedFriend: object;
+  message: MessageInterface;
+  selectedFriend: UserData;
 }) {
   const { colorMode } = useColorMode();
-  const { user } = useAppSelector((state: RootState) => state.auth);
+  const { user } = useAppSelector((state: { auth: AuthState }) => state.auth);
   const { sender_id, content, time, id } = message;
   const currentTime = moment.unix(time).format("HH:mm YYYY-MM-DD");
   const color = colorMode === "light" ? "white" : "white";
+  if (user === null) {
+    redirect("/login");
+  }
   return (
     <Box
       gap="4"
@@ -26,7 +31,8 @@ export default function Message({
       paddingX="8"
       marginBottom={"4"}
       marginLeft={message.sender_id != user.id ? "" : "auto"}
-      width="2xl"
+      // width="2xl"
+      width={["sm", "md", "2xl", "3xl"]}
       color={color}
       marginRight={"10"}
     >
@@ -38,7 +44,7 @@ export default function Message({
         width="full"
       >
         <Avatar
-          boxSize={"10"}
+          boxSize={["8", "10", "14"]}
           // marginTop="12"
           src={
             message.sender_id != user.id
@@ -52,10 +58,16 @@ export default function Message({
         />
         <Box padding="3" width={"10/12"}>
           <Heading>
-            <Text fontWeight={"bolder"}>
-              {sender_id === user.id ? user.nickname : selectedFriend.nickname}
+            <Text>
+              <span className="font-bold">
+                {sender_id === user.id
+                  ? user.nickname
+                  : selectedFriend.nickname}
+              </span>
+              &nbsp;
+              <Text display="inline-block"></Text>
+              <span className="font-normal text-sm">{currentTime}</span>
             </Text>
-            <Text fontSize={"x-small"}>{currentTime}</Text>
           </Heading>
           <Heading
             size="md"

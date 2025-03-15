@@ -2,18 +2,12 @@ import { Button, Input } from "@chakra-ui/react";
 import { useColorMode } from "../../ui/color-mode";
 import { SubmitHandler, useForm } from "react-hook-form"; //@ts-ignore
 import { postComment } from "../../../features/chatActions";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useParams } from "react-router";
 import { RootState } from "../../../app/store";
-import { UserData } from "../../../types";
 import { useAppSelector } from "../../../app/hooks";
 import "primeicons/primeicons.css";
 export default function ChatInput() {
-  interface SubmitData {
-    chat_id: string;
-    id: number;
-    content: string;
-  }
   const { colorMode } = useColorMode();
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm<submitData>();

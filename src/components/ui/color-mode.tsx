@@ -28,6 +28,7 @@ export function useColorMode(): UseColorModeReturn {
   const toggleColorMode = () => {
     setTheme(resolvedTheme === "light" ? "dark" : "light");
   };
+
   return {
     colorMode: resolvedTheme as ColorMode,
     setColorMode: setTheme,

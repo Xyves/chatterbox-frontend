@@ -1,15 +1,19 @@
-import { useSelector } from "react-redux";
 import { Navigate } from "react-router";
-import { RootState } from "../app/store";
 import { useAppSelector } from "../app/hooks";
+import { AuthState } from "../types";
 
 export const ProtectedRoute = ({ children }: { children: any }) => {
-  const { loading, user, userToken } = useAppSelector(
-    (state: RootState) => state.auth
+  const { loading, user } = useAppSelector(
+    (state: { auth: AuthState }) => state.auth
   );
+
+  // if (loading) {
+  //   return <div>Loading...</div>;
+  // }
+
   console.log("Auth user is:", user);
   if (!user) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/login" replace />;
   }
   return children;
 };
