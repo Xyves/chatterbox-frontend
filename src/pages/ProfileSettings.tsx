@@ -7,6 +7,7 @@ import { UserData } from "../types";
 export default function ProfileSettings() {
   const [userData, setUserData] = useState<UserData>({
     nickname: "",
+    id: "",
     bio: "",
     email: "",
     avatar_url: "",
@@ -49,9 +50,6 @@ export default function ProfileSettings() {
       marginX="auto"
     >
       <form className="p-5">
-        <Field label="nickname">
-          <Input placeholder={userData.nickname}></Input>
-        </Field>
         <Field label="password">
           <Input placeholder="Enter your new password"></Input>
         </Field>

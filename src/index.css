@@ -52,10 +52,22 @@ h1 {
 #root {
   width: full;
   height: 100vh;
+  background-color: #213547;
 }
 .main {
   background-image: url("/images/curse_background_hero.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+}
+[data-theme="light"] {
+  background-color: white;
+  color: black;
+  transition: background-color 0.3s ease-in-out;
+}
+
+[data-theme="dark"] {
+  background-color: red;
+  color: white;
+  transition: background-color 0.3s ease-in-out;
 }
