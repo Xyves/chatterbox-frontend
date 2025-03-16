@@ -16,14 +16,16 @@ import { useColorMode } from "../ui/color-mode";
 import { Avatar } from "../ui/avatar";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router";
-import { RootState } from "../../app/store";
 import { useAppSelector } from "../../app/hooks";
+import { AuthState } from "../../types";
 
 export default function Navbar() {
-  const { user } = useAppSelector((state: RootState) => state.auth);
+  const { user } = useAppSelector((state: { auth: AuthState }) => state.auth);
   const { toggleColorMode, colorMode } = useColorMode();
   const dispatch = useDispatch();
-
+  const handleLogout = () => {
+    dispatch(logout()); 
+  };
   return (
     <nav className={"w-full text-red-700"}>
       <Box
@@ -64,6 +66,7 @@ export default function Navbar() {
                 }
                 color={colorMode === "light" ? "#f4a261" : "gray.200"}
                 rounded="3xl"
+                aria-label="switch theme"
               >
                 {colorMode === "light" ? (
                   <i className="pi pi-sun" style={{ fontSize: "1rem" }} />
@@ -73,7 +76,12 @@ export default function Navbar() {
               </Button>
               <MenuRoot>
                 <MenuTrigger marginLeft="16" asChild>
-                  <Button as={Button} rounded="full" background={"none"}>
+                  <Button
+                    as={Button}
+                    rounded="full"
+                    background={"none"}
+                    aria-label="profile"
+                  >
                     <Avatar
                       size={"md"}
                       border={"green"}
@@ -89,7 +97,12 @@ export default function Navbar() {
                 </MenuTrigger>
                 <VStack align="center" marginX={"8"} display={"flex"}></VStack>
                 <MenuContent>
-                  <MenuItemGroup>
+                  <MenuItemGroup
+                    padding="5"
+                    display="flex"
+                    flexDirection={"column"}
+                    alignItems={"center"}
+                  >
                     <Avatar
                       size={"2xl"}
                       src={
@@ -98,19 +111,34 @@ export default function Navbar() {
                           : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png"
                       }
                     />
-                    <p>{user ? user.nickname : ""}</p>
-                    <MenuSeparator />
-                    <MenuItem value="Account Settings">
+                    <Text fontSize={"xl"} fontWeight={"bold"} marginTop="2">
+                      {user ? user.nickname : ""}
+                    </Text>
+                    <MenuSeparator marginTop={"3"} />
+                    <MenuItem
+                      value="Account Settings"
+                      bg={"gray.200"}
+                      marginBottom={"1"}
+                    >
                       <Link to="/settings">Account Settings</Link>
                     </MenuItem>
                     {!user ? (
-                      <MenuItem value="login">
+                      <MenuItem value="login" bg={"gray.200"}>
                         <Link to="/login">Login</Link>
                       </MenuItem>
                     ) : (
-                      <MenuItem value="Logout">
-                        <button onClick={() => dispatch(logout())}>
-                          <Link to="/logout">Logout</Link>
+                      <MenuItem
+                        value="Logout"
+                        className="cursor-pointer"
+                        bg={"gray.200"}
+                      >
+                        <button
+                          onClick={handleLogout}
+                          className="cursor-pointer"
+                        >
+                          <Link to="/logout" className="cursor-pointer">
+                            Logout
+                          </Link>
                         </button>
                       </MenuItem>
                     )}
