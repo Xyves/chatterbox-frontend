@@ -1,19 +1,18 @@
-export interface User {}
-
 export interface UserData {
   nickname: string;
   email?: string;
   bio?: string;
   avatar_url?: string;
   id: string;
+  chat_id?: string;
 }
 export interface MessageInterface {
-  chat_id: string;
   id: string;
-  content: string;
-  is_read?: boolean;
   sender_id: string;
-  time: number;
+  isRead: boolean;
+  content: string;
+  time: string;
+  chat_id: string;
 }
 export interface AuthState {
   loading: boolean;
@@ -24,16 +23,23 @@ export interface AuthState {
   success: boolean;
 }
 export interface ChatState {
-  messages: Message[];
+  messages: MessageInterface[];
   error: string | null;
   success: boolean;
   status: string;
 }
-export interface Message {
-  id: string;
-  sender_id: string;
-  isRead: boolean;
-  content: string;
-  time: string;
+
+export interface submitMessageData {
   chat_id: string;
+  id: string;
+  content: string;
+}
+export interface loginData {
+  nickname: string;
+  password: string;
+}
+export interface registerData {
+  nickname: string;
+  password: string;
+  email: string;
 }
