@@ -13,7 +13,7 @@ const registerUser = createAsyncThunk(
         method: "POST",
         body: JSON.stringify({ nickname, email, password }),
       };
-      await fetch(`${backendUrll}/auth/register`, config);
+      await fetch(`${backendUrl}/auth/register`, config);
     } catch (error) {
       // return custom error message from backend if present
       if (error.response && error.response.data.message) {

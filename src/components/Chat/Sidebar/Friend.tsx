@@ -2,8 +2,15 @@ import { Button, Card, Heading, HStack, Stack } from "@chakra-ui/react";
 import { Avatar } from "../../ui/avatar";
 import { Link } from "react-router";
 import { useColorMode } from "../../ui/color-mode";
+import { UserData } from "../../../types";
 
-export default function Friend({ friend, onSelectFriend }) {
+export default function Friend({
+  friend,
+  onSelectFriend,
+}: {
+  friend: UserData;
+  onSelectFriend: Function;
+}) {
   const { colorMode } = useColorMode();
 
   const bg = colorMode === "light" ? "#2B9EB3" : "#0E273C";

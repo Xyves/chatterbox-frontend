@@ -4,23 +4,23 @@ import { SubmitHandler, useForm } from "react-hook-form"; //@ts-ignore
 import { postComment } from "../../../features/chatActions";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router";
-import { RootState } from "../../../app/store";
 import { useAppSelector } from "../../../app/hooks";
 import "primeicons/primeicons.css";
+import { AuthState, submitMessageData } from "../../../types";
 export default function ChatInput() {
   const { colorMode } = useColorMode();
   const dispatch = useDispatch();
-  const { register, handleSubmit } = useForm<submitData>();
-  const { user } = useAppSelector((state: RootState) => state.auth);
+  const { register, handleSubmit } = useForm<submitMessageData>();
+  const { user } = useAppSelector((state: { auth: AuthState }) => state.auth);
+
   const { id } = useParams();
   const color = colorMode === "light" ? "blackAlpha.900" : "whiteAlpha.950";
-  interface submitData {
-    chat_id: string;
-    id: string;
-    content: string;
-  }
 
-  const submitForm: SubmitHandler<submitData> = async (data) => {
+  const submitForm: SubmitHandler<submitMessageData> = async (data) => {
+    if (!user) {
+      console.error("User is null, cannot post comment.");
+      return;
+    }
     const newComment = await dispatch(
       postComment({ chat_id: id, content: data.content, sender_id: user.id })
     ).unwrap();

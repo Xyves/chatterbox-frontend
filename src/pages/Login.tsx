@@ -18,12 +18,7 @@ import { loginUser } from "../features/authActions.js";
 import Loading from "../components/Loading.js";
 import { useColorMode } from "../components/ui/color-mode.js";
 import { useAppSelector } from "../app/hooks.js";
-import { AuthState } from "../types.js";
-
-interface loginData {
-  nickname: string;
-  password: string;
-}
+import { AuthState, loginData } from "../types.js";
 
 export default function Login() {
   const { colorMode } = useColorMode();

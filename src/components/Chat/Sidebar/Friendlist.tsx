@@ -12,11 +12,7 @@ export default function Friendlist({
   const { colorMode } = useColorMode();
   return (
     <>
-      <Heading
-        fontSize={"3xl"}
-        padding="3"
-        color={colorMode === "light" ? "black" : "white"}
-      >
+      <Heading fontSize={"3xl"} padding="3">
         Join your friends
       </Heading>
       <Flex flex="1" width="full" direction={"column"}>

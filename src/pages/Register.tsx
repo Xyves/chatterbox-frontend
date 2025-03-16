@@ -10,10 +10,10 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { registerUser } from "../features/authActions.js";
 import Loading from "../components/Loading.js";
 import { useAppSelector } from "../app/hooks.js";
-import { AuthState } from "../types.js";
+import { AuthState, registerData } from "../types.js";
 
 export default function Register() {
-  const { loading, userToken, error } = useAppSelector(
+  const { loading, userToken } = useAppSelector(
     (state: { auth: AuthState }) => state.auth
   );
 
@@ -23,11 +23,7 @@ export default function Register() {
 
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm<registerData>();
-  interface registerData {
-    nickname: string;
-    password: string;
-    email: string;
-  }
+
   const submitForm: SubmitHandler<registerData> = (data) => {
     console.log("user data:", data);
     data.email = data.email.toLowerCase();

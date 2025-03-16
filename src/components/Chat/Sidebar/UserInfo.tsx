@@ -3,7 +3,7 @@ import { Avatar } from "../../ui/avatar";
 import { useColorMode } from "../../ui/color-mode";
 import { UserData } from "../../../types";
 
-export default function UserInfo({ user }: { user: UserData }) {
+export default function UserInfo({ user }: { user: UserData | null }) {
   const { colorMode } = useColorMode();
 
   const bg = colorMode === "light" ? "#90e0ef" : "#0E273C";
@@ -27,7 +27,7 @@ export default function UserInfo({ user }: { user: UserData }) {
         fontSize="lg"
         marginBottom="6"
       >
-        {user.nickname}
+        {user ? user.nickname : "nickname"}
       </Card.Title>
     </Card.Root>
   );

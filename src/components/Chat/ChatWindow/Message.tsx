@@ -2,7 +2,6 @@ import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import { Avatar } from "../../ui/avatar";
 
 import moment from "moment";
-import { RootState } from "../../../app/store";
 import { useAppSelector } from "../../../app/hooks";
 import { useColorMode } from "../../ui/color-mode";
 import { AuthState, MessageInterface, UserData } from "../../../types";
@@ -18,8 +17,8 @@ export default function Message({
 }) {
   const { colorMode } = useColorMode();
   const { user } = useAppSelector((state: { auth: AuthState }) => state.auth);
-  const { sender_id, content, time, id } = message;
-  const currentTime = moment.unix(time).format("HH:mm YYYY-MM-DD");
+  const { sender_id, content, time } = message;
+  const currentTime = moment.unix(Number(time)).format("HH:mm YYYY-MM-DD");
   const color = colorMode === "light" ? "white" : "white";
   if (user === null) {
     redirect("/login");
@@ -30,7 +29,7 @@ export default function Message({
       key={message.id}
       paddingX="8"
       marginBottom={"4"}
-      marginLeft={message.sender_id != user.id ? "" : "auto"}
+      marginLeft={message.sender_id != user?.id ? "" : "auto"}
       // width="2xl"
       width={["sm", "md", "2xl", "3xl"]}
       color={color}
@@ -39,7 +38,7 @@ export default function Message({
       <Flex
         alignItems="center"
         justifyContent={"center"}
-        flexDirection={message.sender_id !== user.id ? "row" : "row-reverse"}
+        flexDirection={message.sender_id !== user?.id ? "row" : "row-reverse"}
         gap={4}
         width="full"
       >
@@ -47,20 +46,20 @@ export default function Message({
           boxSize={["8", "10", "14"]}
           // marginTop="12"
           src={
-            message.sender_id != user.id
-              ? selectedFriend.avatar_url
-                ? selectedFriend.avatar_url
-                : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png"
-              : user
-              ? user.avatar_url
-              : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png"
+            message.sender_id !== user?.id
+              ? selectedFriend?.avatar_url ||
+                "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png"
+              : user?.avatar_url ||
+                "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png"
           }
         />
         <Box padding="3" width={"10/12"}>
           <Heading>
             <Text>
               <span className="font-bold">
-                {sender_id === user.id
+                {user === null
+                  ? null
+                  : sender_id === user.id
                   ? user.nickname
                   : selectedFriend.nickname}
               </span>

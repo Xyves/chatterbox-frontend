@@ -1,35 +1,30 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 //@ts-ignore
 import { postComment, fetchMessages } from "./chatActions.js";
-const initialState = {
+import { ChatState, MessageInterface } from "../types.js";
+const initialState: ChatState = {
   messages: [],
   error: null,
   success: false,
+  status: "",
 };
-interface Message {
-  sender_id: string;
-  isRead: boolean;
-  content: string;
-  time: string;
-  chat_id: string;
-}
-interface MessagesState {
-  messages: Message[];
-}
+
 const chatSlice = createSlice({
   name: "messages",
   initialState,
   reducers: {
-    setMessages: (state, action: PayloadAction<Message[]>) => {
+    setMessages: (state, action: PayloadAction<MessageInterface[]>) => {
       state.messages = action.payload;
     },
-    addMessage: (state, action: PayloadAction<Message>) => {
+    addMessage: (state, action: PayloadAction<MessageInterface>) => {
       state.messages.push(action.payload);
     },
   },
   extraReducers: (builder) => {
     builder.addCase(postComment.fulfilled, (state, action) => {
-      const exists = state.messages.some((msg) => msg.id === action.payload.id);
+      const exists = state.messages.some(
+        (message: MessageInterface) => message.id === action.payload.id
+      );
       if (!exists) {
         state.messages.push(action.payload);
       }
@@ -39,11 +34,15 @@ const chatSlice = createSlice({
         state.status = "loading";
       })
       .addCase(fetchMessages.fulfilled, (state, action) => {
-        console.log("Updating Redux state with messages:", action.payload); // Debugging
+        console.log("Updating Redux state with messages:", action.payload);
         state.status = "succeeded";
-        state.messages = action.payload; // Make sure this is an array
+        state.messages = action.payload;
       })
       .addCase(fetchMessages.rejected, (state, action) => {
+        if (!state) {
+          throw new Error("T");
+          return;
+        }
         state.status = "failed";
         state.error = action.payload;
       });

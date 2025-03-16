@@ -6,6 +6,8 @@ import App from "./App.tsx";
 import { persistor, store } from "./app/store";
 import { Provider } from "react-redux";
 import React from "react";
+
+// @ts-ignore
 import { PersistGate } from "redux-persist/integration/react";
 import { ColorModeProvider } from "./components/ui/color-mode.tsx";
 import { ApplyRootStyles } from "./components/ApplyRootStyles.tsx";

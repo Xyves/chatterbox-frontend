@@ -14,20 +14,23 @@ import { useParams } from "react-router";
 //@ts-ignore
 import { fetchFriends } from "../features/authActions";
 import { useColorMode } from "../components/ui/color-mode";
-import { RootState } from "../app/store";
 import { useAppSelector } from "../app/hooks";
+import { AuthState, UserData } from "../types";
 export default function Chat() {
-  const { toggleColorMode, colorMode } = useColorMode();
+  const { colorMode } = useColorMode();
 
   const bg = colorMode === "light" ? "#FFFF" : "#2C4251";
-  const [messages, setMessages] = useState([]);
   const { id } = useParams();
   const dispatch = useDispatch();
   const { loading, user, userToken } = useAppSelector(
-    (state: RootState) => state.auth
+    (state: { auth: AuthState }) => state.auth
   );
   const [friends, setFriends] = useState([]);
-  const [selectedFriend, setSelectedFriend] = useState(null);
+  const [selectedFriend, setSelectedFriend] = useState<UserData>({
+    id: "",
+    nickname: "Guest",
+  });
+
   useEffect(() => {
     if (userToken) {
       dispatch(fetchUser());
@@ -37,13 +40,15 @@ export default function Chat() {
   useEffect(() => {
     const getFriends = async () => {
       if (userToken) {
-        try {
-          console.log("The user while fetching friends:", user.nickname);
-          const response = await dispatch(fetchFriends(user.nickname));
-          setFriends(response.payload);
-          console.log("friendlist:", response.payload);
-        } catch (error) {
-          console.error("Error fetching friends:", error);
+        if (user) {
+          try {
+            console.log("The user while fetching friends:", user.nickname);
+            const response = await dispatch(fetchFriends(user.nickname));
+            setFriends(response.payload);
+            console.log("friendlist:", response.payload);
+          } catch (error) {
+            console.error("Error fetching friends:", error);
+          }
         }
       }
     };
@@ -51,13 +56,15 @@ export default function Chat() {
     getFriends();
   }, []);
   const memoizedFriends = useMemo(() => friends, [friends]);
+
   if (loading) {
     <Loading />;
   }
+
   return (
     <Grid templateColumns={"14"} height={"88vh"} width="full">
       <Box overflowY="auto" height="auto" width="3/4" background={bg}>
-        <UserInfo user={user} />
+        {user ? <UserInfo user={user} /> : null}
         <Friendlist
           friends={memoizedFriends}
           onSelectFriend={setSelectedFriend}
@@ -70,15 +77,7 @@ export default function Chat() {
         width="10/12"
         margin="auto"
       >
-        {id ? (
-          <MainChat
-            messages={messages}
-            setMessages={setMessages}
-            selectedFriend={selectedFriend}
-          />
-        ) : (
-          ""
-        )}
+        {id ? <MainChat selectedFriend={selectedFriend} /> : null}
       </Box>
     </Grid>
   );
