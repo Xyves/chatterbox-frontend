@@ -1,15 +1,15 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+//@ts-ignore
 import { fetchUser, registerUser } from "./authActions.js";
+//@ts-ignore
 import { loginUser } from "./authActions.js";
+import { AuthState, UserData } from "../types.js";
 
-const userToken = localStorage.getItem("token")
-  ? localStorage.getItem("token")
-  : null;
-
-const initialState = {
+const initialState: AuthState = {
   loading: false,
   user: null,
   userToken: null,
+  userInfo: null,
   error: null,
   success: false,
 };
@@ -25,7 +25,24 @@ const authSlice = createSlice({
       state.userToken = null;
       state.user = null;
       state.error = null;
-      window.location.replace("/");
+    },
+    setLoading(state, action: PayloadAction<boolean>) {
+      state.loading = action.payload;
+    },
+    setUser(state, action: PayloadAction<UserData | null>) {
+      state.user = action.payload;
+    },
+    setUserToken(state, action: PayloadAction<string | null>) {
+      state.userToken = action.payload;
+    },
+    setError(state, action: PayloadAction<string | null>) {
+      state.error = action.payload;
+    },
+    setUserInfo(state, action: PayloadAction<object | null>) {
+      state.userInfo = action.payload;
+    },
+    setSuccess(state, action: PayloadAction<boolean>) {
+      state.success = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -35,7 +52,7 @@ const authSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(registerUser.fulfilled, (state, { payload }) => {
+      .addCase(registerUser.fulfilled, (state) => {
         state.loading = false;
         state.success = true;
       })
@@ -52,7 +69,7 @@ const authSlice = createSlice({
         .addCase(loginUser.fulfilled, (state, { payload }) => {
           state.loading = false;
           state.user = {
-            // id: payload.id,
+            id: payload.id,
             nickname: payload.nickname,
           };
           state.userToken = payload.userToken;
@@ -82,4 +99,13 @@ const authSlice = createSlice({
   },
 });
 export const { logout } = authSlice.actions;
+export const {
+  setLoading,
+  setUser,
+  setUserToken,
+  setError,
+  setUserInfo,
+  setSuccess,
+} = authSlice.actions;
+
 export default authSlice.reducer;
