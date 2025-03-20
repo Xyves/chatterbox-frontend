@@ -24,10 +24,7 @@ export default function MainChat({
   const bg = colorMode === "light" ? "#2B9EB3" : "#154D57";
 
   return (
-    <Stack
-      direction={{ base: "row", md: "column" }} // Column on small screens, row on medium and above
-      align="center"
-    >
+    <Stack direction={{ base: "row", md: "column" }} align="center">
       <Box
         background={bg}
         padding="2"
