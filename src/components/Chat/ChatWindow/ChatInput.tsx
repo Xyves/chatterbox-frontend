@@ -1,4 +1,4 @@
-import { Button, Input } from "@chakra-ui/react";
+import { Box, Button, Input } from "@chakra-ui/react";
 import { useColorMode } from "../../ui/color-mode";
 import { SubmitHandler, useForm } from "react-hook-form"; //@ts-ignore
 import { postComment } from "../../../features/chatActions";
@@ -7,10 +7,17 @@ import { useParams } from "react-router";
 import { useAppSelector } from "../../../app/hooks";
 import "primeicons/primeicons.css";
 import { AuthState, submitMessageData } from "../../../types";
+import { useRef } from "react";
 export default function ChatInput() {
+  const inputRef = useRef(null);
   const { colorMode } = useColorMode();
   const dispatch = useDispatch();
-  const { register, handleSubmit } = useForm<submitMessageData>();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<submitMessageData>();
   const { user } = useAppSelector((state: { auth: AuthState }) => state.auth);
 
   const { id } = useParams();
@@ -21,14 +28,16 @@ export default function ChatInput() {
       console.error("User is null, cannot post comment.");
       return;
     }
+
     const newComment = await dispatch(
       postComment({ chat_id: id, content: data.content, sender_id: user.id })
     ).unwrap();
     console.log(newComment);
+    reset();
   };
   return (
-    <>
-      <form onSubmit={handleSubmit(submitForm)}>
+    <Box padding={"8"}>
+      <form onSubmit={handleSubmit(submitForm)} autocomplete="off">
         <Input
           placeholder="Type a message..."
           variant="subtle"
@@ -39,7 +48,11 @@ export default function ChatInput() {
           background={
             colorMode === "light" ? "whiteAlpha.950" : "blackAlpha.900"
           }
-          {...register("content")}
+          {...register("content", {
+            required: "Message cannot be empty",
+            validate: (value) =>
+              value.trim() !== "" || "Message cannot be just spaces",
+          })}
           color={color}
         />
         <Button
@@ -52,6 +65,6 @@ export default function ChatInput() {
           type="submit"
         ></Button>
       </form>
-    </>
+    </Box>
   );
 }

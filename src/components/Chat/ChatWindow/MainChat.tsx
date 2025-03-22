@@ -1,4 +1,4 @@
-import { Box, Stack } from "@chakra-ui/react";
+import { Box, Flex, Stack } from "@chakra-ui/react";
 import { useEffect } from "react";
 import User from "./User";
 import MessageList from "./MessageList";
@@ -25,22 +25,27 @@ export default function MainChat({
 
   return (
     <Stack direction={{ base: "row", md: "column" }} align="center">
-      <Box
-        background={bg}
-        padding="2"
-        width={["md", "lg", "3xl"]}
-        height={["sm", "md", "2xl", "3xl"]}
-        display="flex"
-        flexDirection="column"
-      >
-        <User user={selectedFriend} />
-        <Box flex="1" overflowY="auto" overflowX={"hidden"}>
-          <MessageList selectedFriend={selectedFriend} />
+      <Flex>
+        <Box
+          background={bg}
+          padding="3"
+          height="90vh"
+          width="4xl"
+          display="flex"
+          flexDirection="column"
+        >
+          <User user={selectedFriend} />
+          <Flex flexDirection="column" height="100%">
+            <Box flex="1" overflowY="auto" overflowX="hidden">
+              <MessageList selectedFriend={selectedFriend} />
+            </Box>
+
+            <Box width="full" height="auto" bg="green" flexShrink={0}>
+              <ChatInput />
+            </Box>
+          </Flex>
         </Box>
-        <Box width="full " padding="6">
-          <ChatInput />
-        </Box>
-      </Box>
+      </Flex>
     </Stack>
   );
 }

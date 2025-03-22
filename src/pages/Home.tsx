@@ -47,8 +47,8 @@ export default function Home() {
             <h2 className="p-12  text-2xl"></h2>
             <Link to="/login">
               <Button
-                fontWeight={"bold"}
                 marginY="5"
+                paddingY="5"
                 background={colorMode === "light" ? " #90e0ef" : "#407476"}
                 rounded="md"
                 color={colorMode === "light" ? "#2d353d" : "whiteAlpha.900"}

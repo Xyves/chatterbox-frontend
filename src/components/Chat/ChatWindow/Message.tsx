@@ -27,11 +27,9 @@ export default function Message({
     <Box
       gap="4"
       key={message.id}
-      paddingX="8"
-      marginBottom={"4"}
+      paddingX="6"
+      marginBottom={"3"}
       marginLeft={message.sender_id != user?.id ? "" : "auto"}
-      // width="2xl"
-      width={["sm", "md", "2xl", "3xl"]}
       color={color}
       marginRight={"10"}
     >
@@ -43,8 +41,8 @@ export default function Message({
         width="full"
       >
         <Avatar
-          boxSize={["8", "10", "14"]}
-          // marginTop="12"
+          boxSize={["6", "10", "14"]}
+          marginTop="6"
           src={
             message.sender_id !== user?.id
               ? selectedFriend?.avatar_url ||
@@ -53,7 +51,7 @@ export default function Message({
                 "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png"
           }
         />
-        <Box padding="3" width={"10/12"}>
+        <Box padding="3" width={"full"}>
           <Heading>
             <Text>
               <span className="font-bold">
@@ -69,7 +67,7 @@ export default function Message({
             </Text>
           </Heading>
           <Heading
-            size="md"
+            fontSize="md"
             background={"white"}
             color="black"
             padding="2"

@@ -38,7 +38,7 @@ export default function Register() {
   //   <Navigate to={"/"} />;
   // }
   // if (success) return <Navigate to="/login" replace />;
-  if (userToken) return <Navigate to="/chat" replace />;
+  // if (userToken) return <Navigate to="/chat" replace />;
   return (
     <Flex justifyContent={"center"} alignContent={"center"} marginY="auto">
       <Box

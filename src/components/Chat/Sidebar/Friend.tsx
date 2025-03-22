@@ -47,7 +47,11 @@ export default function Friend({
                 boxSize={"14"}
               />
               <Stack gap="">
-                <Heading fontWeight="semibold" textStyle="1xl">
+                <Heading
+                  fontWeight="semibold"
+                  textStyle="1xl"
+                  fontSize={{ smToMd: "md", mdTo2xl: "1xl" }}
+                >
                   {friend.nickname}
                 </Heading>
               </Stack>
