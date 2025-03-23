@@ -7,9 +7,7 @@ import { useParams } from "react-router";
 import { useAppSelector } from "../../../app/hooks";
 import "primeicons/primeicons.css";
 import { AuthState, submitMessageData } from "../../../types";
-import { useRef } from "react";
 export default function ChatInput() {
-  const inputRef = useRef(null);
   const { colorMode } = useColorMode();
   const dispatch = useDispatch();
   const {
