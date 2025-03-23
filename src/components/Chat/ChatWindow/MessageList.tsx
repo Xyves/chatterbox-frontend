@@ -1,4 +1,4 @@
-import { Box, Container } from "@chakra-ui/react";
+import { Box, Container, Flex } from "@chakra-ui/react";
 import { RootState } from "../../../app/store";
 import { useSelector } from "react-redux";
 import Message from "./Message";
@@ -11,7 +11,15 @@ export default function MessageList({
 }) {
   const messages = useSelector((state: RootState) => state.messages.messages);
   return (
-    <Container bg={"#216869"} height="full">
+    <Box
+      bg="#216869"
+      paddingTop="10"
+      paddingBottom={"5"}
+      minH="100%"
+      display="flex"
+      flexDirection="column"
+      justifyContent="flex-start"
+    >
       {messages && messages.length > 0 ? (
         messages.map((message: MessageInterface) => (
           <Message
@@ -21,8 +29,15 @@ export default function MessageList({
           />
         ))
       ) : (
-        <p>Not found</p>
+        <Flex
+          alignItems="center"
+          marginTop="auto"
+          paddingLeft="10"
+          fontSize="2xl"
+        >
+          <p>Messages not found</p>
+        </Flex>
       )}
-    </Container>
+    </Box>
   );
 }

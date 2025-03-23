@@ -1,4 +1,12 @@
-import { Box, Flex, Heading, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  Flex,
+  Grid,
+  GridItem,
+  Heading,
+  Text,
+} from "@chakra-ui/react";
 import { Avatar } from "../../ui/avatar";
 
 import moment from "moment";
@@ -25,56 +33,73 @@ export default function Message({
   }
   return (
     <Box
-      gap="4"
-      key={message.id}
-      paddingX="6"
-      marginBottom={"3"}
+      width="50%" // Fixed width issue
+      paddingX={4}
       marginLeft={message.sender_id != user?.id ? "" : "auto"}
-      color={color}
-      marginRight={"10"}
+      marginBottom={4}
+      color={message.sender_id !== user?.id ? "blue.500" : color}
     >
+      {/* Empty top-left box */}
+
+      {/* User Info */}
+      <GridItem display="flex" alignItems="center">
+        <Heading>
+          <Text>
+            <Text
+              as="span"
+              fontWeight="bold"
+              fontSize={{ base: "0.75rem", md: "1.5rem", lg: "1.7rem" }}
+              marginRight={5}
+            >
+              {user === null
+                ? null
+                : sender_id === user.id
+                ? user.nickname
+                : selectedFriend.nickname}
+            </Text>
+            <Text
+              as="span"
+              color="gray.300"
+              fontSize={[".6rem", "0.75rem", "1rem"]}
+            >
+              {currentTime}
+            </Text>
+          </Text>
+        </Heading>
+      </GridItem>
       <Flex
         alignItems="center"
-        justifyContent={"center"}
+        justifyContent={
+          message.sender_id !== user?.id ? "flex-start" : "flex-end"
+        }
         flexDirection={message.sender_id !== user?.id ? "row" : "row-reverse"}
-        gap={4}
-        width="full"
+        gap={3}
+        width="100%"
       >
-        <Avatar
-          boxSize={["6", "10", "14"]}
-          marginTop="6"
-          src={
-            message.sender_id !== user?.id
-              ? selectedFriend?.avatar_url ||
-                "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png"
-              : user?.avatar_url ||
-                "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png"
-          }
-        />
-        <Box padding="3" width={"full"}>
-          <Heading>
-            <Text>
-              <span className="font-bold">
-                {user === null
-                  ? null
-                  : sender_id === user.id
-                  ? user.nickname
-                  : selectedFriend.nickname}
-              </span>
-              &nbsp;
-              <Text display="inline-block"></Text>
-              <span className="font-normal text-sm">{currentTime}</span>
-            </Text>
-          </Heading>
-          <Heading
-            fontSize="md"
-            background={"white"}
-            color="black"
-            padding="2"
-            rounded="xl"
-          >
-            {content}
-          </Heading>
+        <Center w="50px" h="50px" borderRadius="full">
+          <Avatar
+            boxSize={["4", "10", "3rem"]}
+            p="1"
+            src={
+              message.sender_id !== user?.id
+                ? selectedFriend?.avatar_url ||
+                  "https://upload.wikimedia.org/wikipedia/commons/5/59/User-avatar.svg"
+                : user?.avatar_url ||
+                  "https://upload.wikimedia.org/wikipedia/commons/5/59/User-avatar.svg"
+            }
+          />
+        </Center>
+
+        <Box
+          bg={message.sender_id !== user?.id ? "gray.100" : "blue.500"}
+          color={message.sender_id !== user?.id ? "black" : "white"}
+          p={3}
+          fontSize={["0.6rem", "0.7rem", "0.9rem"]}
+          rounded="xl"
+          width="3/4"
+          wordBreak="break-word"
+        >
+          {content}
         </Box>
       </Flex>
     </Box>

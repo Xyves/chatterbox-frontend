@@ -39,9 +39,9 @@ export default function ChatInput() {
         <Input
           placeholder="Type a message..."
           variant="subtle"
-          width="lg"
           borderColor={color}
           borderWidth={"medium"}
+          width="2/3"
           rounded="lg"
           background={
             colorMode === "light" ? "whiteAlpha.950" : "blackAlpha.900"
