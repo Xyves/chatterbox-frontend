@@ -34,13 +34,12 @@ export default function ChatInput() {
     reset();
   };
   return (
-    <Box padding={"8"}>
+    <Box padding={"5"}>
       <form onSubmit={handleSubmit(submitForm)} autocomplete="off">
         <Input
           placeholder="Type a message..."
           variant="subtle"
           borderColor={color}
-          borderWidth={"medium"}
           width="2/3"
           rounded="lg"
           background={
@@ -56,10 +55,10 @@ export default function ChatInput() {
         <Button
           bg="blue.500"
           rounded="2xl"
-          marginTop="0.5"
           className="pi pi-send
 "
-          color={color}
+          paddingX="5"
+          marginLeft={"6"}
           type="submit"
         ></Button>
       </form>

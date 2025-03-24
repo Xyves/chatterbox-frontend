@@ -1,4 +1,4 @@
-import { Box, Flex, Heading } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading } from "@chakra-ui/react";
 import { Avatar } from "../../ui/avatar";
 import { useColorMode } from "../../ui/color-mode";
 import { UserData } from "../../../types";
@@ -11,17 +11,18 @@ export default function User({ user }: { user: UserData }) {
     <>
       <Box
         bg={bg}
-        borderTop="0"
-        borderBottom={"6"}
         border={"yellow"}
         roundedTop="2xl"
-        borderBlock={"solid"}
+        borderBottom={"solid"}
+        borderBottomColor={"blue.100"}
+        borderBlockWidth={"medium"}
+        paddingBottom="2"
       >
         <Box padding="4" width="full">
           <Flex alignItems={"center"}>
             <Box>
               <Avatar
-                boxSize={["2rem", "3rem", "4rem"]}
+                boxSize={["2rem", "2.5rem", "3rem", "4rem"]}
                 src={
                   user
                     ? user.avatar_url
@@ -33,7 +34,7 @@ export default function User({ user }: { user: UserData }) {
                 marginLeft={"5"}
                 marginTop="2"
                 fontWeight={"bold"}
-                fontSize={["1.5rem"]}
+                fontSize={["0.75rem", "1.4rem", "1.4rem", "1.6rem"]}
                 color={color}
               >
                 {user.nickname}
@@ -41,22 +42,31 @@ export default function User({ user }: { user: UserData }) {
             </Box>
             <Box
               marginLeft="auto"
-              marginRight={"12"}
+              mdToLg={{ marginRight: "12" }}
               display="flex"
               justifyContent={"space-between"}
+              smToMd={{ padding: "0" }}
             >
-              <i
-                className="pi pi-search w-full h-full "
-                style={{ fontSize: "2.5rem", color: "orange" }}
-              ></i>
-              <i
-                className="pi pi-phone w-full h-full "
-                style={{
-                  fontSize: "2.5rem",
-                  color: "green",
-                  marginLeft: "1rem",
-                }}
-              ></i>
+              <Button
+                variant={"plain"}
+                fontSize={["1rem", "1.4rem", "2.2rem", "3rem", "3.5rem"]}
+              >
+                <i
+                  className="pi pi-search w-full h-full "
+                  style={{ color: "orange" }}
+                ></i>
+              </Button>
+              <Button
+                variant={"plain"}
+                fontSize={["1rem", "1.4rem", "2.2rem", "3rem", "3.5rem"]}
+              >
+                <i
+                  className="pi pi-phone w-full h-full md:ml-4"
+                  style={{
+                    color: "green",
+                  }}
+                ></i>
+              </Button>
             </Box>
           </Flex>
         </Box>

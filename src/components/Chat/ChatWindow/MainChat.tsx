@@ -21,7 +21,7 @@ export default function MainChat({
   useEffect(() => {
     dispatch(fetchMessages(chat_id));
   }, [dispatch, chat_id]);
-  const bg = colorMode === "light" ? "#2B9EB3" : "#154D57";
+  const bg = colorMode === "light" ? "white" : "#154D57";
   return (
     <Flex>
       <Box
@@ -36,7 +36,7 @@ export default function MainChat({
           <Box flex="1" overflowY="auto" overflowX="hidden">
             <MessageList selectedFriend={selectedFriend} />
           </Box>
-          <Box width="full" bg={bg} flexShrink={0}>
+          <Box width="full" marginBottom={"12"} bg={bg} flexShrink={0}>
             <ChatInput />
           </Box>
         </Flex>

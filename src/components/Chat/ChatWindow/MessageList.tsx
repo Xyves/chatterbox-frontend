@@ -3,6 +3,7 @@ import { RootState } from "../../../app/store";
 import { useSelector } from "react-redux";
 import Message from "./Message";
 import { MessageInterface, UserData } from "../../../types";
+import { useColorMode } from "../../ui/color-mode";
 
 export default function MessageList({
   selectedFriend,
@@ -10,9 +11,11 @@ export default function MessageList({
   selectedFriend: UserData;
 }) {
   const messages = useSelector((state: RootState) => state.messages.messages);
+  const { colorMode } = useColorMode();
+  const bg = colorMode === "light" ? "#3ec8c9" : "#12324d";
   return (
     <Box
-      bg="#216869"
+      bg={bg}
       paddingTop="10"
       paddingBottom={"5"}
       minH="100%"

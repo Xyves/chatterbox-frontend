@@ -6,6 +6,7 @@ import {
   GridItem,
   Heading,
   Text,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import { Avatar } from "../../ui/avatar";
 
@@ -31,6 +32,7 @@ export default function Message({
   if (user === null) {
     redirect("/login");
   }
+  const asProp = useBreakpointValue({ base: "p", md: "span" });
   return (
     <Box
       width="50%" // Fixed width issue
@@ -48,7 +50,7 @@ export default function Message({
             <Text
               as="span"
               fontWeight="bold"
-              fontSize={{ base: "0.75rem", md: "1.5rem", lg: "1.7rem" }}
+              fontSize={{ base: "1rem", md: "1.3rem", lg: "1.7rem" }}
               marginRight={5}
             >
               {user === null
@@ -58,9 +60,9 @@ export default function Message({
                 : selectedFriend.nickname}
             </Text>
             <Text
-              as="span"
+              as={asProp}
               color="gray.300"
-              fontSize={[".6rem", "0.75rem", "1rem"]}
+              fontSize={{ base: "0.6rem", md: "0.8rem", lg: "0.8rem" }}
             >
               {currentTime}
             </Text>
@@ -78,8 +80,7 @@ export default function Message({
       >
         <Center w="50px" h="50px" borderRadius="full">
           <Avatar
-            boxSize={["4", "10", "3rem"]}
-            p="1"
+            boxSize={["8", "10", "3rem"]}
             src={
               message.sender_id !== user?.id
                 ? selectedFriend?.avatar_url ||
