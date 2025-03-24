@@ -1,4 +1,4 @@
-import { Box, Grid } from "@chakra-ui/react";
+import { Box, Flex, Grid, GridItem } from "@chakra-ui/react";
 import "primeicons/primeicons.css";
 
 import Friendlist from "../components/Chat/Sidebar/Friendlist";
@@ -19,7 +19,7 @@ import { AuthState, UserData } from "../types";
 export default function Chat() {
   const { colorMode } = useColorMode();
 
-  const bg = colorMode === "light" ? "#FFFF" : "#2C4251";
+  const bg = colorMode === "light" ? "#ebebea" : "#2C4251";
   const { id } = useParams();
   const dispatch = useDispatch();
   const { loading, user, userToken } = useAppSelector(
@@ -62,23 +62,45 @@ export default function Chat() {
   }
 
   return (
-    <Grid templateColumns={"14"} height={"88vh"} width="full">
-      <Box overflowY="auto" height="auto" width="3/4" background={bg}>
-        {user ? <UserInfo user={user} /> : null}
-        <Friendlist
-          friends={memoizedFriends}
-          onSelectFriend={setSelectedFriend}
-        />
-      </Box>
-      <Box
-        gridColumnStart="2"
-        gridColumnEnd="11"
-        rounded="2xl"
-        width="10/12"
-        margin="auto"
+    <Flex smToMd={{ flexDirection: "row-reverse" }}>
+      <Grid
+        templateColumns="repeat(14, 1fr)"
+        templateRows="repeat(6, 1fr)"
+        width="full"
+        minH="100vh"
       >
-        {id ? <MainChat selectedFriend={selectedFriend} /> : null}
-      </Box>
-    </Grid>
+        <GridItem
+          background={bg}
+          colSpan={3}
+          rowSpan={2}
+          overflowY="auto"
+          h="100vh"
+          maxWidth={"80"}
+          flexShrink={1}
+          hideBelow="md"
+        >
+          {user ? <UserInfo user={user} /> : null}
+          <Friendlist
+            friends={memoizedFriends}
+            onSelectFriend={setSelectedFriend}
+          />
+        </GridItem>
+        {/* </Box> */}
+        <GridItem
+          gridColumnStart={5}
+          mdDown={{ gridColumnStart: 2, gridColumnEnd: 14 }}
+          gridColumnEnd={14}
+          rowSpan={4}
+          // TODO: Fix below line
+          height={["30vh", "30vh", "60vh"]}
+          display="flex"
+          flexDirection="column"
+          padding="5"
+          fontSize={["sm", "md", "lg"]}
+        >
+          {id ? <MainChat selectedFriend={selectedFriend} /> : null}
+        </GridItem>
+      </Grid>
+    </Flex>
   );
 }
