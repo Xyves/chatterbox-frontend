@@ -25,15 +25,20 @@ export default function MainChat({
   return (
     <Flex>
       <Box
-        padding="2"
         height="full"
         display="flex"
         minWidth={"full"}
+        alignContent={"center"}
         flexDirection="column"
       >
         <User user={selectedFriend} />
         <Flex flexDirection="column" height="80vh">
-          <Box flex="1" overflowY="auto" overflowX="hidden">
+          <Box
+            flex="1"
+            overflowY="auto"
+            overflowX="hidden"
+            border={`solid 2px ${bg}`}
+          >
             <MessageList selectedFriend={selectedFriend} />
           </Box>
           <Box width="full" marginBottom={"12"} bg={bg} flexShrink={0}>
