@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-// @ts-expect-error
+//@ts-ignore
 import authReducer from "../features/authSlice.js";
 //@ts-ignore
 import persistStore from "redux-persist/es/persistStore";
