@@ -1,7 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-
 // const backendUrl = "messaging-app-backend-production-b29f.up.railway.app/api";
-const backendUrl = "http://127.0.0.1:4000/api";
+const backendUrl = import.meta.env.VITE_BACKENDURL;
 const registerUser = createAsyncThunk(
   "auth/register",
   async ({ nickname, password, email }, { rejectWithValue }) => {
@@ -41,7 +40,6 @@ const fetchUser = createAsyncThunk("user/me", async (_, thunkAPI) => {
     }
 
     const data = await response.json();
-    console.log("User data fetched:", data);
 
     return data;
   } catch (error) {
@@ -67,7 +65,6 @@ const loginUser = createAsyncThunk(
       const data = await response.json();
       localStorage.setItem("userToken", data.userToken);
       localStorage.setItem("id", data.id);
-      console.log(data);
       return {
         id: data.id,
         nickname: data.nickname,
@@ -86,7 +83,6 @@ const fetchFriends = createAsyncThunk("chat", async (nickname, thunkAPI) => {
   try {
     const token = thunkAPI.getState().auth.userToken;
     if (!token) return thunkAPI.rejectWithValue("No token found");
-    console.log("Current user name:", nickname);
     const response = await fetch(
       `${backendUrl}/chat/friends?user_nickname=${nickname}`,
       {
@@ -105,7 +101,7 @@ const fetchFriends = createAsyncThunk("chat", async (nickname, thunkAPI) => {
     const filteredData = data.filter(
       (friend) => !friend.nickname.includes(nickname)
     );
-    console.log("Friends data fetched:", data);
+    // console.log("Friends data fetched:", data);
 
     return filteredData;
   } catch (error) {

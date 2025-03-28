@@ -2,12 +2,14 @@ import { useSelector } from "react-redux";
 import { TypedUseSelectorHook } from "react-redux";
 import { RootState } from "./store";
 import { useEffect } from "react";
-export function useOutsideClick(ref, handler) {
+export function useOutsideClick(
+  ref: React.RefObject<HTMLElement>,
+  handler: (event: MouseEvent) => void
+) {
   useEffect(() => {
-    console.log("wow");
     const handleClickOutside = (event: MouseEvent) => {
-      if (ref.current && !ref.current.contains(event.target)) {
-        handler();
+      if (ref.current && !ref.current.contains(event.target as Node)) {
+        handler(event);
       }
     };
 

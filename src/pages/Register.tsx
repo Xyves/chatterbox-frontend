@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { PasswordInput } from "../components/ui/password-input";
 import { Field } from "../components/ui/field";
 import { Button } from "../components/ui/button";
-import { Link, Navigate, useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { SubmitHandler, useForm } from "react-hook-form";
 // @ts-ignore
@@ -13,7 +13,7 @@ import { useAppSelector } from "../app/hooks.js";
 import { AuthState, registerData } from "../types.js";
 
 export default function Register() {
-  const { loading, userToken } = useAppSelector(
+  const { loading } = useAppSelector(
     (state: { auth: AuthState }) => state.auth
   );
 
@@ -25,7 +25,7 @@ export default function Register() {
   const { register, handleSubmit } = useForm<registerData>();
 
   const submitForm: SubmitHandler<registerData> = (data) => {
-    console.log("user data:", data);
+    // console.log("user data:", data);
     data.email = data.email.toLowerCase();
     dispatch(registerUser(data));
     navigate("/login");

@@ -22,6 +22,7 @@ import { AuthState, loginData } from "../types.js";
 
 export default function Login() {
   const { colorMode } = useColorMode();
+
   const { loading, user, error } = useAppSelector(
     (state: { auth: AuthState }) => state.auth
   );
@@ -29,6 +30,9 @@ export default function Login() {
   const { register, handleSubmit } = useForm<loginData>();
   const submitForm: SubmitHandler<loginData> = async (data) => {
     await dispatch(loginUser(data));
+  };
+  const handleGuestLogin = async () => {
+    await dispatch(loginUser({ nickname: "Guest", password: "guest123" }));
   };
   if (user) {
     return <Navigate to="/chat" replace />;
@@ -38,15 +42,15 @@ export default function Login() {
   }
   return (
     // #2C4251
-    <Flex justifyContent={"center"} alignContent={"center"} height="55vh">
+    <Flex justifyContent={"center"} alignContent={"center"}>
       <Box
         background={colorMode === "light" ? "whiteAlpha.900" : "#2C4251"}
         color={colorMode === "light" ? "blackAlpha.900" : "whiteAlpha.950"}
         display="flex"
         justifyContent={"center"}
-        marginTop="32"
+        marginTop={{ sm: "12", md: "32" }}
       >
-        <Grid templateColumns="repeat(2, 1fr)" gap="6">
+        <Grid md={{ gridTemplateColumns: "repeat(2, 1fr)" }} gap="6">
           <Box padding="6" width="full">
             <Heading size="3xl" marginBottom="8" fontWeight={"bold"}>
               Sign In
@@ -73,7 +77,9 @@ export default function Login() {
                 <Field label="password" required>
                   <PasswordInput
                     // value={value.password}
-
+                    borderColor={error ? "red" : ""}
+                    outlineColor={error ? "red" : ""}
+                    boxShadow={error ? "none" : ""}
                     id="password"
                     {...register("password", {
                       required: {
@@ -84,7 +90,7 @@ export default function Login() {
                   />
                 </Field>
                 <Button
-                  background={"#db2777"}
+                  bg={"#db2777"}
                   variant="solid"
                   rounded={"2xl"}
                   type="submit"
@@ -95,6 +101,14 @@ export default function Login() {
                 <Text color={"red"} fontSize="sm">
                   {error ? "Username or password is wrong" : ""}
                 </Text>
+                <Button
+                  onClick={handleGuestLogin}
+                  rounded="2xl"
+                  bg={"#db2373"}
+                  marginTop={"2"}
+                >
+                  Log In As Guest
+                </Button>
               </form>
             </Stack>
           </Box>
@@ -119,7 +133,7 @@ export default function Login() {
                 Don't have an account?
               </Heading>
               <Link to="/register">
-                <Button variant="outline" rounded="3xl" color="whiteAlpha.900">
+                <Button rounded="3xl" bg={"white"} color={"black"}>
                   Sign up
                 </Button>
               </Link>

@@ -1,5 +1,5 @@
 export interface UserData {
-  nickname: string;
+  nickname?: string;
   email?: string;
   bio?: string;
   avatar_url?: string;
@@ -43,3 +43,6 @@ export interface registerData {
   password: string;
   email: string;
 }
+export type NavbarProps = {
+  onOpenFriendList: React.MouseEventHandler<HTMLButtonElement>;
+};

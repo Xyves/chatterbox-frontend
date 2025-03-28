@@ -10,7 +10,7 @@ import Register from "./pages/Register";
 import ErrorPage from "./pages/ErrorPage";
 import { ProtectedRoute } from "./pages/ProtectedRoute";
 import { useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 //@ts-ignore
 import { logout } from "./features/authSlice";
 import ProfileSettings from "./pages/ProfileSettings";
@@ -24,11 +24,18 @@ function App() {
       dispatch(logout()); // Clear state if no token exists
     }
   }, [dispatch]);
+  const [isFriendListOpen, setFriendListOpen] = useState(false);
+
+  const onOpenFriendList = () => setFriendListOpen((prev) => !prev);
+  const onCloseFriendList = () => setFriendListOpen(false);
   return (
     <ChakraProvider value={defaultSystem}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Layout />}>
+          <Route
+            path="/"
+            element={<Layout onOpenFriendList={onOpenFriendList} />}
+          >
             <Route index element={<Home />}></Route>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/register" element={<Register />}></Route>
@@ -36,7 +43,10 @@ function App() {
               path="/chat"
               element={
                 <ProtectedRoute>
-                  <Chat />
+                  <Chat
+                    isFriendListOpen={isFriendListOpen}
+                    onCloseFriendList={onCloseFriendList}
+                  />
                 </ProtectedRoute>
               }
             ></Route>
@@ -44,7 +54,10 @@ function App() {
               path="/chat/:id"
               element={
                 <ProtectedRoute>
-                  <Chat />
+                  <Chat
+                    isFriendListOpen={isFriendListOpen}
+                    onCloseFriendList={onCloseFriendList}
+                  />
                 </ProtectedRoute>
               }
             ></Route>

@@ -1,4 +1,4 @@
-import { Box, Flex, Stack } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import { useEffect } from "react";
 import User from "./User";
 import MessageList from "./MessageList";
