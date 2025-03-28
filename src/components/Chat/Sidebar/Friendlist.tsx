@@ -1,5 +1,5 @@
 import Friend from "./Friend";
-import { Box, Flex, Heading } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import { useColorMode } from "../../ui/color-mode";
 import { UserData } from "../../../types";
 export default function Friendlist({
@@ -11,11 +11,18 @@ export default function Friendlist({
 }) {
   const { colorMode } = useColorMode();
   return (
-    <Box height={"full"}>
-      <Heading padding="3" color={colorMode === "light" ? "black" : "white"}>
-        Join your friends
-      </Heading>
+    <Box marginBottom={"16"}>
       <Flex flex="1" width="full" direction={"column"}>
+        <Text
+          fontSize={{ sm: "lg", md: "xl", lg: "2xl" }}
+          fontWeight={"bold"}
+          color={colorMode === "light" ? "black" : "white"}
+          marginLeft="4"
+          padding="3"
+          marginY={"3"}
+        >
+          Join Your Friends
+        </Text>
         <Box height="full">
           {friends.map((friend: UserData) => (
             <Friend

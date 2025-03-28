@@ -16,11 +16,10 @@ export default function User({ user }: { user: UserData }) {
         borderBottom={"solid"}
         borderBottomColor={"blue.100"}
         borderBlockWidth={"medium"}
-        paddingBottom="2"
       >
         <Box padding="4" width="full">
           <Flex alignItems={"center"}>
-            <Box>
+            <Box display="flex" alignItems={"center"}>
               <Avatar
                 boxSize={["2rem", "2.5rem", "3rem", "4rem"]}
                 src={
@@ -32,7 +31,6 @@ export default function User({ user }: { user: UserData }) {
               <Heading
                 display="inline-block"
                 marginLeft={"5"}
-                marginTop="2"
                 fontWeight={"bold"}
                 fontSize={["0.75rem", "1.4rem", "1.4rem", "1.6rem"]}
                 color={color}
@@ -49,7 +47,7 @@ export default function User({ user }: { user: UserData }) {
             >
               <Button
                 variant={"plain"}
-                fontSize={["1rem", "1.4rem", "2.2rem", "3rem", "3.5rem"]}
+                fontSize={["1rem", "1.4rem", "2.2rem", "3rem", "3.2rem"]}
               >
                 <i
                   className="pi pi-search w-full h-full "
@@ -58,7 +56,7 @@ export default function User({ user }: { user: UserData }) {
               </Button>
               <Button
                 variant={"plain"}
-                fontSize={["1rem", "1.4rem", "2.2rem", "3rem", "3.5rem"]}
+                fontSize={["1rem", "1.4rem", "2.2rem", "3rem", "3.2rem"]}
               >
                 <i
                   className="pi pi-phone w-full h-full md:ml-4"

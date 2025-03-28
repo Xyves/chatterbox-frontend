@@ -8,7 +8,12 @@ export default function UserInfo({ user }: { user: UserData | null }) {
 
   const bg = colorMode === "light" ? "#90e0ef" : "#0E273C";
   return (
-    <Card.Root background={bg}>
+    <Card.Root
+      bg={"inherit"}
+      borderBlockColor={bg}
+      borderBlockWidth={"thick"}
+      height={["1/4", "1/5"]}
+    >
       <Card.Header />
       <Card.Body>
         <Avatar

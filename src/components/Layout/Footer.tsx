@@ -17,14 +17,14 @@ export default function Footer() {
       fontSize="md"
     >
       <Stack direction="row" align="center" justifyContent={"center"}>
+        <Text color={colorMode === "light" ? "gray.900" : "gray.50"}>
+          Github:
+        </Text>
         <Link
           href="https://github.com/Xyves "
           className="text-center text-red-200 text transition-none text-inherit border-none"
           target="_blank"
         >
-          <Text color={colorMode === "light" ? "gray.900" : "gray.50"}>
-            Github:
-          </Text>
           <i
             className={`pi pi-github text-center `}
             style={{

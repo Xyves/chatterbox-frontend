@@ -1,4 +1,4 @@
-import { Box, Container, Flex } from "@chakra-ui/react";
+import { Box,  Flex } from "@chakra-ui/react";
 import { RootState } from "../../../app/store";
 import { useSelector } from "react-redux";
 import Message from "./Message";
@@ -18,9 +18,11 @@ export default function MessageList({
       bg={bg}
       paddingTop="10"
       paddingBottom={"5"}
+      minWidth="full"
       minH="100%"
       display="flex"
       flexDirection="column"
+      alignItems={"center"}
       justifyContent="flex-start"
     >
       {messages && messages.length > 0 ? (
@@ -33,7 +35,7 @@ export default function MessageList({
         ))
       ) : (
         <Flex
-          alignItems="center"
+          alignItems="flex-start"
           marginTop="auto"
           paddingLeft="10"
           fontSize="2xl"

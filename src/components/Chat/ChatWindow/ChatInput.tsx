@@ -10,12 +10,7 @@ import { AuthState, submitMessageData } from "../../../types";
 export default function ChatInput() {
   const { colorMode } = useColorMode();
   const dispatch = useDispatch();
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<submitMessageData>();
+  const { register, handleSubmit, reset } = useForm<submitMessageData>();
   const { user } = useAppSelector((state: { auth: AuthState }) => state.auth);
 
   const { id } = useParams();
@@ -30,17 +25,19 @@ export default function ChatInput() {
     const newComment = await dispatch(
       postComment({ chat_id: id, content: data.content, sender_id: user.id })
     ).unwrap();
-    console.log(newComment);
     reset();
   };
   return (
     <Box padding={"5"}>
-      <form onSubmit={handleSubmit(submitForm)} autocomplete="off">
+      <form onSubmit={handleSubmit(submitForm)} autoComplete="off">
         <Input
           placeholder="Type a message..."
+          _placeholder={{
+            fontSize: ["2xs", "xs", "md", "lg"],
+          }}
           variant="subtle"
           borderColor={color}
-          width="2/3"
+          width={["50%", "60%", "70%", "80%", "85%"]}
           rounded="lg"
           background={
             colorMode === "light" ? "whiteAlpha.950" : "blackAlpha.900"
@@ -54,6 +51,7 @@ export default function ChatInput() {
         />
         <Button
           bg="blue.500"
+          _hover={{ bg: "blue.700" }}
           rounded="2xl"
           className="pi pi-send
 "

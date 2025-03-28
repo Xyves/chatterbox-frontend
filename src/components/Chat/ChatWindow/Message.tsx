@@ -1,13 +1,4 @@
-import {
-  Box,
-  Center,
-  Flex,
-  Grid,
-  GridItem,
-  Heading,
-  Text,
-  useBreakpointValue,
-} from "@chakra-ui/react";
+import { Box, Center, Flex, Grid, Heading, Text } from "@chakra-ui/react";
 import { Avatar } from "../../ui/avatar";
 
 import moment from "moment";
@@ -29,22 +20,22 @@ export default function Message({
   const { sender_id, content, time } = message;
   const currentTime = moment.unix(Number(time)).format("HH:mm YYYY-MM-DD");
   const color = colorMode === "light" ? "white" : "white";
+  // const hoverBg =
   if (user === null) {
     redirect("/login");
   }
-  const asProp = useBreakpointValue({ base: "p", md: "span" });
   return (
     <Box
-      width="50%" // Fixed width issue
+      width="90%"
+      display="flex"
+      flexDirection={"column"}
       paddingX={4}
-      marginLeft={message.sender_id != user?.id ? "" : "auto"}
       marginBottom={4}
       color={message.sender_id !== user?.id ? "blue.500" : color}
     >
       {/* Empty top-left box */}
-
       {/* User Info */}
-      <GridItem display="flex" alignItems="center">
+      <Box marginLeft={sender_id !== user.id ? "16" : 0}>
         <Heading>
           <Text>
             <Text
@@ -60,7 +51,7 @@ export default function Message({
                 : selectedFriend.nickname}
             </Text>
             <Text
-              as={asProp}
+              as={"span"}
               color="gray.300"
               fontSize={{ base: "0.6rem", md: "0.8rem", lg: "0.8rem" }}
             >
@@ -68,29 +59,30 @@ export default function Message({
             </Text>
           </Text>
         </Heading>
-      </GridItem>
+      </Box>
       <Flex
         alignItems="center"
         justifyContent={
           message.sender_id !== user?.id ? "flex-start" : "flex-end"
         }
         flexDirection={message.sender_id !== user?.id ? "row" : "row-reverse"}
-        gap={3}
+        gap={6}
         width="100%"
       >
-        <Center w="50px" h="50px" borderRadius="full">
-          <Avatar
-            boxSize={["8", "10", "3rem"]}
-            src={
-              message.sender_id !== user?.id
-                ? selectedFriend?.avatar_url ||
-                  "https://upload.wikimedia.org/wikipedia/commons/5/59/User-avatar.svg"
-                : user?.avatar_url ||
-                  "https://upload.wikimedia.org/wikipedia/commons/5/59/User-avatar.svg"
-            }
-          />
+        <Center borderRadius="full">
+          <Flex flex="1" alignItems="center" justifyContent="center">
+            <Avatar
+              boxSize={["8", "10", "3rem"]}
+              src={
+                message.sender_id !== user?.id
+                  ? selectedFriend?.avatar_url ||
+                    "https://upload.wikimedia.org/wikipedia/commons/5/59/User-avatar.svg"
+                  : user?.avatar_url ||
+                    "https://upload.wikimedia.org/wikipedia/commons/5/59/User-avatar.svg"
+              }
+            />
+          </Flex>
         </Center>
-
         <Box
           bg={message.sender_id !== user?.id ? "gray.100" : "blue.500"}
           color={message.sender_id !== user?.id ? "black" : "white"}
@@ -98,6 +90,9 @@ export default function Message({
           fontSize={["0.6rem", "0.7rem", "0.9rem"]}
           rounded="xl"
           width="3/4"
+          _hover={{
+            bg: message.sender_id !== user?.id ? "gray.300" : "blue.600",
+          }}
           wordBreak="break-word"
         >
           {content}

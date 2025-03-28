@@ -14,43 +14,46 @@ export default function Friend({
   const { colorMode } = useColorMode();
 
   const bg = colorMode === "light" ? "#2B9EB3" : "#0E273C";
+  const hoverBg = colorMode === "light" ? "#258899" : "#153c5c";
   const color = colorMode === "light" ? "black" : "white";
   return (
     <Card.Root
       background={bg}
       marginBottom="4"
       rounded="2xl"
-      margin="2"
+      margin="1"
       height={"20"}
       display="flex"
       justifyContent={"center"}
       _last={{ marginBottom: "10" }}
+      variant="subtle"
+      maxWidth={"full"}
+      _hover={{ bg: hoverBg }}
     >
       <Link to={`/chat/${friend.chat_id}`} className="w-full">
         <Button
           aria-labelledby={friend.id}
-          width="full"
           background="none"
           onClick={() => onSelectFriend(friend)}
         >
-          <Card.Body color={color}>
-            <HStack gap="3">
+          <Card.Body color={color} width="full">
+            <HStack gap="2.5">
               <Avatar
                 src={
                   friend.avatar_url
                     ? friend.avatar_url
-                    : "https://images.unsplash.com/photo-1511806754518-53bada35f930"
+                    : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png"
                 }
                 name={`avatar of ${
                   friend.avatar_url ? friend.avatar_url : "user"
                 }`}
-                boxSize={"14"}
+                boxSize={{ md: "3rem", lg: "4rem" }}
               />
               <Stack gap="">
                 <Heading
-                  fontWeight="semibold"
+                  fontWeight="bold"
                   textStyle="1xl"
-                  fontSize={{ smToMd: "md", mdTo2xl: "1xl" }}
+                  fontSize={{ smToMd: "sm", mdToLg: "sm", xlTo2xl: "xl" }}
                 >
                   {friend.nickname}
                 </Heading>
