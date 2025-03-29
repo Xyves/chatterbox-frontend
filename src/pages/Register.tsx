@@ -1,7 +1,7 @@
 import { Box, Flex, Heading, Input, Text } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { PasswordInput } from "../components/ui/password-input";
-import { Field } from "../components/ui/field";
+import { Field } from "@chakra-ui/react";
 import { Button } from "../components/ui/button";
 import { Link, useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
@@ -42,49 +42,67 @@ export default function Register() {
   return (
     <Flex justifyContent={"center"} alignContent={"center"} marginY="auto">
       <Box
-        width="80"
-        height="55vh"
         margin="auto"
+        width={["90%", "3/4", "1/2", "1/3", "1/4"]}
         alignItems={"center"}
         display="flex"
         justifyContent={"center"}
-        background={"white"}
+        background={"whiteAlpha.950"}
         color="black"
         rounded="md"
+        position="absolute"
+        top="50%"
+        left="50%"
+        transform="translate(-50%, -50%)"
       >
-        <Box padding="5">
-          <Heading fontSize="3xl" marginBottom="-2">
-            Sign up{" "}
-          </Heading>
-          <Text marginY="6" fontSize={"lg"}>
+        <Box padding="16">
+          <Text marginY="6" fontSize={"2xl"}>
             Log In <Link to="/login">here</Link>
           </Text>
           <form method="post" onSubmit={handleSubmit(submitForm)}>
-            <Field label="nickname" required>
+            <Field.Root required marginBottom={"7"}>
+              <Field.Label>
+                Nickname
+                <Field.RequiredIndicator />
+              </Field.Label>
               <Input
                 placeholder="John Doe"
                 size="md"
                 {...register("nickname")}
                 css={{ "--focus-color": "#db2777" }}
-                marginBottom="5"
               />
-            </Field>
-            <Field label="email" required>
+              <Field.ErrorText />
+            </Field.Root>{" "}
+            <Field.Root required marginBottom={"7"}>
+              <Field.Label>
+                Email
+                <Field.RequiredIndicator />
+              </Field.Label>
               <Input
                 placeholder="example@domain.com"
                 size="md"
                 {...register("email")}
                 css={{ "--focus-color": "#db2777" }}
-                marginBottom="5"
               />
-            </Field>
-            <Field label="Password" required>
+              <Field.ErrorText />
+            </Field.Root>
+            <Field.Root required>
+              <Field.Label>
+                Password
+                <Field.RequiredIndicator />
+              </Field.Label>
+
               <PasswordInput
                 {...register("password")}
                 name="password"
+                placeholder="password"
                 id="password"
               />
-            </Field>
+              <Field.HelperText>
+                Must have between 6 and 15 characters
+              </Field.HelperText>
+              <Field.ErrorText />
+            </Field.Root>
             <Button
               background={"#db2777"}
               variant="solid"
