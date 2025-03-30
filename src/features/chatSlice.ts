@@ -34,14 +34,12 @@ const chatSlice = createSlice({
         state.status = "loading";
       })
       .addCase(fetchMessages.fulfilled, (state, action) => {
-        console.log("Updating Redux state with messages:", action.payload);
         state.status = "succeeded";
         state.messages = action.payload;
       })
       .addCase(fetchMessages.rejected, (state, action) => {
         if (!state) {
           throw new Error("T");
-          return;
         }
         state.status = "failed";
         state.error = action.payload;
