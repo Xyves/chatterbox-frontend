@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       gridTemplateRows: {
-        layout: "auto 1fr auto", // Header, main content, footer
+        layout: "auto 1fr auto",
       },
     },
   },

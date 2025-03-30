@@ -19,8 +19,7 @@ export default function Message({
   const { user } = useAppSelector((state: { auth: AuthState }) => state.auth);
   const { sender_id, content, time } = message;
   const currentTime = moment.unix(Number(time)).format("HH:mm YYYY-MM-DD");
-  const color = colorMode === "light" ? "white" : "white";
-  // const hoverBg =
+  const color = colorMode === "light" ? "#444" : "white";
   if (user === null) {
     redirect("/login");
   }
@@ -33,9 +32,7 @@ export default function Message({
       marginBottom={4}
       color={message.sender_id !== user?.id ? "blue.500" : color}
     >
-      {/* Empty top-left box */}
-      {/* User Info */}
-      <Box marginLeft={sender_id !== user.id ? "16" : 0}>
+      <Box marginLeft={sender_id !== user?.id ? "16" : 0}>
         <Heading>
           <Text>
             <Text
@@ -52,7 +49,7 @@ export default function Message({
             </Text>
             <Text
               as={"span"}
-              color="gray.300"
+              color={colorMode === "light" ? "blackAlpha.700" : "gray.300"}
               fontSize={{ base: "0.6rem", md: "0.8rem", lg: "0.8rem" }}
             >
               {currentTime}

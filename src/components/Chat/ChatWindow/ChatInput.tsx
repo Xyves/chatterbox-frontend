@@ -22,7 +22,7 @@ export default function ChatInput() {
       return;
     }
 
-    const newComment = await dispatch(
+    dispatch(
       postComment({ chat_id: id, content: data.content, sender_id: user.id })
     ).unwrap();
     reset();
@@ -53,8 +53,7 @@ export default function ChatInput() {
           bg="blue.500"
           _hover={{ bg: "blue.700" }}
           rounded="2xl"
-          className="pi pi-send
-"
+          className="pi pi-send"
           paddingX="5"
           marginLeft={"6"}
           type="submit"

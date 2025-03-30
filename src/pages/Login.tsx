@@ -94,6 +94,7 @@ export default function Login() {
                   variant="solid"
                   rounded={"2xl"}
                   type="submit"
+                  width="26"
                   marginTop={"8"}
                 >
                   Sign In
@@ -104,8 +105,10 @@ export default function Login() {
                 <Button
                   onClick={handleGuestLogin}
                   rounded="2xl"
-                  bg={"#db2373"}
+                  // bg={"#db2373"}
                   marginTop={"2"}
+                  bg="pink.700"
+                  width="32"
                 >
                   Log In As Guest
                 </Button>

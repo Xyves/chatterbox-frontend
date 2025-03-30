@@ -52,8 +52,13 @@ export default function Navbar({
   };
   return (
     <nav className={"w-full text-red-700"}>
-      <Box background={colorMode === "light" ? "#55c2da" : "#2C4251"}>
-        <Flex h={20} alignItems={"center"} justifyContent={"space-between"}>
+      <Box background={colorMode === "light" ? "#55c2da" : "#154d57"}>
+        <Flex
+          h={20}
+          alignItems={"center"}
+          justifyContent={"space-between"}
+          width="full"
+        >
           <Link to="/">
             <Image
               marginLeft={["1", "6"]}
@@ -99,7 +104,7 @@ export default function Navbar({
               <MenuTrigger
                 marginLeft={["2", "8", "12", "16"]}
                 asChild
-                marginRight={"2"}
+                marginRight={[0, 12]}
                 padding={["1", "2", "3"]}
               >
                 <Button
@@ -193,20 +198,24 @@ export default function Navbar({
                 </MenuItemGroup>
               </MenuContent>
             </MenuRoot>
-            <Button
-              display={{ sm: "flex", md: "none" }}
-              fontSize={"lg"}
-              background={colorMode === "light" ? "white" : "black"}
-              color={colorMode !== "light" ? "whiteAlpha.800" : "black"}
-              border={"solid black 1px"}
-              _hover={{ bg: "gray.200" }}
-              rounded="3xl"
-              padding="1"
-              marginRight={["0", "1", "6"]}
-              onClick={onOpenFriendList}
-            >
-              <FaUserFriends className="text-center" />
-            </Button>
+            {user ? (
+              <Button
+                display={{ sm: "flex", md: "none" }}
+                fontSize={"lg"}
+                background={colorMode === "light" ? "white" : "black"}
+                color={colorMode !== "light" ? "whiteAlpha.800" : "black"}
+                border={"solid black 1px"}
+                _hover={{ bg: "gray.200" }}
+                rounded="3xl"
+                padding="1"
+                marginRight={["4", "8", "6"]}
+                onClick={onOpenFriendList}
+              >
+                <FaUserFriends className="text-center" />
+              </Button>
+            ) : (
+              ""
+            )}
           </Stack>
         </Flex>
       </Box>

@@ -1,4 +1,4 @@
-import { Box,  Flex } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import { RootState } from "../../../app/store";
 import { useSelector } from "react-redux";
 import Message from "./Message";

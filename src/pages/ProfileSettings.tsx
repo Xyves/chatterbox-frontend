@@ -1,4 +1,4 @@
-import { Flex, Input, Stack } from "@chakra-ui/react";
+import { Flex, Heading, Input, Stack, Text, Textarea } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { Field } from "../components/ui/field";
 import { useState } from "react";
@@ -11,13 +11,13 @@ import { updateUser } from "../app/hooks/updateUser.js";
 
 export default function ProfileSettings() {
   const { user } = useAppSelector((state: { auth: AuthState }) => state.auth);
-
   const [userData, setUserData] = useState<UserData>({
     id: "",
     bio: "",
     email: "",
     avatar_url: "",
   });
+
   const handleSubmit = async () => {
     if (!user) {
       console.error("User not found!");
@@ -27,10 +27,13 @@ export default function ProfileSettings() {
       console.error("User ID is required!");
       return;
     }
+    if (user.id === "b59ddf02-54c5-4c39-b9af-a0e9e8dc2ec1") {
+      console.error("Guest can't modify settings!");
+      return;
+    }
     try {
       updateUser(userData);
       // console.log("User updated:", updatedUser);
-
       setUserData({
         id: "",
         email: "",
@@ -58,30 +61,41 @@ export default function ProfileSettings() {
     <Flex
       justifyContent={"center"}
       minHeight="30vh"
-      width={["80%", "60%", "55%", "45%", "25%"]}
+      width={["90%", "75%", "60%", "45%", "35%"]}
       bg={"darkcyan"}
-      padding={"12"}
       position="absolute"
+      padding="0"
+      flexDirection={"column"}
       top="50%"
       left="50%"
       transform="translate(-50%, -50%)"
       rounded="2xl"
     >
+      <Heading
+        fontSize={"2xl"}
+        marginBottom={"6"}
+        padding="7"
+        bg="#005959"
+        roundedTop="2xl"
+      >
+        Account
+      </Heading>
       <form
-        onSubmit={handleSubmit}
+        onSubmit={user?.nickname !== "Guest" ? handleSubmit : undefined}
         style={{
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          width: "100%",
+          padding: "3rem",
         }}
+        className=" "
       >
-        <Stack gap="5" padding="5">
+        <Stack gap="5" padding="4" width="full">
           <Field
-            label={
-              userData.nickname === "Guest"
-                ? "email (Doesn't work on Guest)"
-                : "email"
-            }
+            marginX={"auto"}
+            width={["100%", "100%", "80%", "70%", "60%"]}
+            label={"email"}
           >
             <Input
               placeholder={userData.email}
@@ -92,25 +106,23 @@ export default function ProfileSettings() {
           </Field>
 
           <Field
-            label={
-              userData.nickname === "Guest"
-                ? "bio (Doesn't work on Guest)"
-                : "bio"
-            }
+            marginX={"auto"}
+            width={["100%", "100%", "80%", "70%", "60%"]}
+            label={"bio"}
           >
-            <Input
+            <Textarea
+              size="md"
+              variant="outline"
               placeholder={userData.bio == "" ? "Bio is empty" : userData.bio}
               onChange={(e) =>
                 setUserData({ ...userData, bio: e.target.value })
               }
-            ></Input>
+            />
           </Field>
           <Field
-            label={
-              userData.nickname === "Guest"
-                ? "avatar_url (Doesn't work on Guest)"
-                : "avatar_url"
-            }
+            width={["100%", "100%", "80%", "70%", "60%"]}
+            marginX={"auto"}
+            label={"avatar_url"}
           >
             <Input
               placeholder={userData.avatar_url}
@@ -120,7 +132,10 @@ export default function ProfileSettings() {
             ></Input>
           </Field>
         </Stack>
-        <Button width="1/2" type="submit">
+        <Text fontWeight={"bold"}>
+          {user?.nickname === "Guest" ? "Can't change data for Guest" : ""}
+        </Text>
+        <Button width="1/3" type="submit" marginTop="4">
           Update
         </Button>
       </form>

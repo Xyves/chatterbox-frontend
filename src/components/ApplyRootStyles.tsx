@@ -7,7 +7,7 @@ export const ApplyRootStyles = () => {
   useEffect(() => {
     const root = document.getElementById("root");
     if (root) {
-      root.style.backgroundColor = colorMode === "dark" ? "#1A202C" : "#213547";
+      root.style.backgroundColor = colorMode === "dark" ? "#313c52" : "#e0e0e0";
       root.style.transition = "background-color 0.3s ease-in-out";
     }
   }, [colorMode]);
