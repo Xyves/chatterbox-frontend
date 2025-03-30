@@ -1,4 +1,4 @@
-import { Box, Center, Flex, Grid, Heading, Text } from "@chakra-ui/react";
+import { Box, Center, Flex, Heading, Text } from "@chakra-ui/react";
 import { Avatar } from "../../ui/avatar";
 
 import moment from "moment";

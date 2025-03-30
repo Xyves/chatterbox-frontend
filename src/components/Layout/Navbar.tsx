@@ -1,14 +1,6 @@
 import "primeicons/primeicons.css";
 
-import {
-  Box,
-  Button,
-  Flex,
-  Image,
-  Stack,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Image, Stack, Text } from "@chakra-ui/react";
 import { CiLogin, CiLogout } from "react-icons/ci";
 import { FaUserFriends } from "react-icons/fa";
 
