@@ -35,8 +35,9 @@ export default function Friend({
           aria-labelledby={friend.id}
           background="none"
           onClick={() => onSelectFriend(friend)}
+          padding="0"
         >
-          <Card.Body color={color} width="full">
+          <Card.Body color={color} width="full" padding="1">
             <HStack gap="2.5">
               <Avatar
                 src={
@@ -53,7 +54,7 @@ export default function Friend({
                 <Heading
                   fontWeight="bold"
                   textStyle="1xl"
-                  fontSize={{ smToMd: "sm", mdToLg: "sm", xlTo2xl: "xl" }}
+                  fontSize={{ smToMd: "sm", mdToLg: "xs", xlTo2xl: "xl" }}
                 >
                   {friend.nickname}
                 </Heading>

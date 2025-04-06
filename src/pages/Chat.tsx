@@ -26,6 +26,7 @@ export default function Chat({
   const { colorMode } = useColorMode();
   const friendListRef = useRef(null);
   const bg = colorMode === "light" ? "#ebebea" : "#2C4251";
+  const border = colorMode === "light" ? "#90e0ef" : "#0e273c";
   const { id } = useParams();
   const dispatch = useDispatch();
   const { loading, user, userToken } = useAppSelector(
@@ -92,6 +93,8 @@ export default function Chat({
           top={{ base: "0", md: "auto" }}
           left={{ base: "0", md: "auto" }}
           zIndex={{ base: "overlay", md: "auto" }}
+          borderColor={border}
+          borderRightWidth={"unset"}
         >
           {user ? <UserInfo user={user} /> : null}
           <Friendlist

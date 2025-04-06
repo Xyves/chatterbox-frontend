@@ -10,8 +10,9 @@ export default function Friendlist({
   onSelectFriend: any;
 }) {
   const { colorMode } = useColorMode();
+  const bg = colorMode === "light" ? "#95d8e5" : "#345363";
   return (
-    <Box marginBottom={"16"}>
+    <Box marginBottom={"16"} bg={bg}>
       <Flex flex="1" width="full" direction={"column"}>
         <Text
           fontSize={{ sm: "lg", md: "xl", lg: "2xl" }}

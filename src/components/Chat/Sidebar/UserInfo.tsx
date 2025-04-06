@@ -6,13 +6,17 @@ import { UserData } from "../../../types";
 export default function UserInfo({ user }: { user: UserData | null }) {
   const { colorMode } = useColorMode();
 
-  const bg = colorMode === "light" ? "#90e0ef" : "#0E273C";
+  const border = colorMode === "light" ? "#5abccf" : "#0E273C";
+  const bg = colorMode === "light" ? "#90e0ef" : "#345363";
   return (
     <Card.Root
-      bg={"inherit"}
-      borderBlockColor={bg}
-      borderBlockWidth={"thick"}
+      bg={bg}
+      borderBlockColor={border}
+      borderBlockWidth={"thin"}
+      borderX="none"
+      borderTop="none"
       height={["1/4", "1/5"]}
+      rounded={"none"}
     >
       <Card.Header />
       <Card.Body>
